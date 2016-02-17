@@ -35,6 +35,15 @@ gem 'puma'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+
+  # Use RSpec for testing
+  gem 'rspec-rails', '~> 3.0'
+  # With Capybara for integration tests
+  gem 'capybara'
+  # Use FactoryGirl for fixtures
+  gem 'factory_girl_rails'
+  # And Database Cleaner
+  gem 'database_cleaner'
 end
 
 group :development do
