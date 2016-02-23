@@ -22,7 +22,7 @@ class CreateTables < ActiveRecord::Migration
     execute "ALTER TABLE journeys ADD PRIMARY KEY (start, carplate);"
 
     create_table :drivers, {id: false} do |t|
-      t.string :email, null: false 
+      t.string :email, null: false
       t.datetime :start, null: false
       t.string :carplate, null: false
       t.integer :passenger_rating
