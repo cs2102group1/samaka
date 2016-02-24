@@ -1,2 +1,2 @@
-class Driver < ActiveRecord:Base
+class Driver < ActiveRecord::Base
 end
