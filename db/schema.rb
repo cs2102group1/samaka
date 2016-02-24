@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218092914) do
+ActiveRecord::Schema.define(version: 20160223161003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 20160218092914) do
     t.datetime "start",           null: false
   end
 
+  add_index "journeys", ["start"], name: "index_journeys_on_start", unique: true, using: :btree
+
   create_table "passengers", id: false, force: :cascade do |t|
     t.string   "email",                        null: false
     t.datetime "start",                        null: false
@@ -43,11 +45,24 @@ ActiveRecord::Schema.define(version: 20160218092914) do
   end
 
   create_table "users", primary_key: "email", force: :cascade do |t|
-    t.string  "username",                  null: false
-    t.integer "role",                      null: false
-    t.string  "phone_number",              null: false
-    t.text    "carplates",    default: [],              array: true
+    t.string   "username",                            null: false
+    t.integer  "role",                                null: false
+    t.string   "phone_number",                        null: false
+    t.text     "carplates",              default: [],              array: true
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.boolean  "admin"
   end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "drivers", "journeys", column: "start", primary_key: "start", name: "drivers_start_fkey", on_delete: :cascade
   add_foreign_key "drivers", "users", column: "email", primary_key: "email", name: "drivers_email_fkey", on_delete: :cascade
