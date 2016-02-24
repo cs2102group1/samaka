@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160223161003) do
+ActiveRecord::Schema.define(version: 20160223160922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,8 +32,6 @@ ActiveRecord::Schema.define(version: 20160223161003) do
     t.string   "car_plate",       null: false
     t.datetime "start",           null: false
   end
-
-  add_index "journeys", ["start"], name: "index_journeys_on_start", unique: true, using: :btree
 
   create_table "passengers", id: false, force: :cascade do |t|
     t.string   "email",                        null: false
