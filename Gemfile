@@ -43,6 +43,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   # With Capybara for integration tests
   gem 'capybara'
+  gem 'capybara-email'
   # Use FactoryGirl for fixtures
   gem 'factory_girl_rails'
   # And Database Cleaner

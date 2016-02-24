@@ -26,6 +26,29 @@ feature 'Authentication', type: :feature do
 
         click_button 'Sign up'
       }.to change { User.count }.by(1)
+        .and change { ActionMailer::Base.deliveries.count }.by(1)
+
+      # Verify created user
+      created_user = User.last
+      expect(created_user.email). to eq(user.email)
+      expect(created_user.username). to eq(user.username)
+      expect(created_user.phone_number). to eq(user.phone_number)
+      expect(created_user.role).to eq(User::STRING_ROLE_MEMBER)
+      expect(created_user.confirmed_at).to be_nil
+
+      # Verify confirmation email sent
+      email = ActionMailer::Base.deliveries.last
+      expect(email.to).to contain_exactly(user.email)
+      confirmation_link = Rails.application.routes.url_helpers
+        .user_confirmation_url(confirmation_token: created_user.confirmation_token, host: 'localhost', port: 3000)
+      expect(email.body).to have_xpath("//a[@href = '#{confirmation_link}']")
+
+      # Created user cannot sign in yet
+      visit new_user_session_path
+      fill_in 'Email', with: user.email
+      fill_in 'Password', with: user.password
+      click_button 'Sign in'
+      expect(page).to have_content('confirm')
     end
   end
 
