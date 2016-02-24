@@ -14,12 +14,18 @@ feature 'Authentication', type: :feature do
       find_link('Register').click
       expect(current_path).to eq(new_user_registration_path)
 
+      user = FactoryGirl.build(:user)
+
       # Fill in valid register details
-      user_details = FactoryGirl.attributes_for(:user)
-      fill_in 'Email', with: user_details[:email]
-      fill_in :user_password, with: user_details[:password]
-      fill_in 'Password confirmation', with: user_details[:password]
-      click_button 'Sign up'
+      expect {
+        fill_in 'Email', with: user.email
+        fill_in 'Username', with: user.username
+        fill_in :user_password, with: user.password
+        fill_in 'Password confirmation', with: user.password
+        fill_in 'Phone number', with: user.phone_number
+
+        click_button 'Sign up'
+      }.to change { User.count }.by(1)
     end
   end
 
