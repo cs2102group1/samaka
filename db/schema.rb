@@ -18,11 +18,13 @@ ActiveRecord::Schema.define(version: 20160224032527) do
 
   create_table "drivers", id: false, force: :cascade do |t|
     t.string   "email",            null: false
-    t.datetime "start",            null: false
+    t.datetime "start_time",       null: false
     t.string   "car_plate",        null: false
     t.integer  "passenger_rating"
     t.text     "passenger_review"
   end
+
+  add_index "drivers", ["start_time", "car_plate"], name: "drivers_start_time_car_plate_key", unique: true, using: :btree
 
   create_table "journeys", id: false, force: :cascade do |t|
     t.string   "pickup_point",    null: false
@@ -30,28 +32,30 @@ ActiveRecord::Schema.define(version: 20160224032527) do
     t.float    "price",           null: false
     t.integer  "available_seats", null: false
     t.string   "car_plate",       null: false
-    t.datetime "start",           null: false
+    t.datetime "start_time",      null: false
   end
 
   create_table "passengers", id: false, force: :cascade do |t|
     t.string   "email",                        null: false
-    t.datetime "start",                        null: false
+    t.datetime "start_time",                   null: false
     t.string   "car_plate",                    null: false
     t.integer  "driver_rating"
     t.text     "driver_review"
     t.boolean  "onboard",       default: true, null: false
   end
 
+  add_index "passengers", ["start_time", "car_plate"], name: "passengers_start_time_car_plate_key", unique: true, using: :btree
+
   create_table "users", primary_key: "email", force: :cascade do |t|
-    t.string   "username",                                  null: false
-    t.string   "role",                   default: "member", null: false
-    t.string   "phone_number",                              null: false
-    t.text     "carplates",              default: [],                    array: true
-    t.string   "encrypted_password",     default: "",       null: false
+    t.string   "username"
+    t.string   "role",                                null: false
+    t.string   "phone_number",                        null: false
+    t.string   "car_plates",                                       array: true
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,        null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -65,9 +69,10 @@ ActiveRecord::Schema.define(version: 20160224032527) do
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["username"], name: "users_username_key", unique: true, using: :btree
 
-  add_foreign_key "drivers", "journeys", column: "start", primary_key: "start", name: "drivers_start_fkey", on_delete: :cascade
-  add_foreign_key "drivers", "users", column: "email", primary_key: "email", name: "drivers_email_fkey", on_delete: :cascade
-  add_foreign_key "passengers", "journeys", column: "start", primary_key: "start", name: "passengers_start_fkey", on_delete: :cascade
-  add_foreign_key "passengers", "users", column: "email", primary_key: "email", name: "passengers_email_fkey", on_delete: :cascade
+  add_foreign_key "drivers", "journeys", column: "start_time", primary_key: "start_time", name: "drivers_start_time_fkey"
+  add_foreign_key "drivers", "users", column: "email", primary_key: "email", name: "drivers_email_fkey"
+  add_foreign_key "passengers", "journeys", column: "start_time", primary_key: "start_time", name: "passengers_start_time_fkey"
+  add_foreign_key "passengers", "users", column: "email", primary_key: "email", name: "passengers_email_fkey"
 end
