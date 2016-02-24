@@ -26,9 +26,11 @@ gem 'puma'
 
 # Use Slim for templating
 gem 'slim-rails'
-#Use devise for authentication
+# Use devise for authentication
 gem 'devise'
-gem 'tzinfo-data'
+
+gem 'tzinfo'
+gem 'tzinfo-data', platforms: [:x64_mingw, :mingw, :mswin]
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
