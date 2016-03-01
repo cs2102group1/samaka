@@ -1,0 +1,95 @@
+//-------------------------------------------------------------------------------------------------
+// SETTINGS
+//-------------------------------------------------------------------------------------------------
+$color-primary: #65bf71;
+
+/* Generic */
+$font-family-default: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-size-default: 16px;
+$font-weight-regular: 400;
+$font-weight-bold: 600;
+
+/* Elements */
+$h1-font-weight: $font-weight-bold;
+$h1-text-transform: lowercase;
+$h1-text-color: $color-primary;
+
+/* Objects */
+$container-padding: 0 1rem;
+
+/* Media Queries */
+$media-large-screen-and-up: "screen and (min-width: 48rem)";
+
+//-------------------------------------------------------------------------------------------------
+// GENERIC
+//-------------------------------------------------------------------------------------------------
+html, body {
+  font-family: $font-family-default;
+  font-size: $font-size-default;
+
+  box-sizing: border-box;
+
+  * { box-sizing: inherit; }
+}
+
+//-------------------------------------------------------------------------------------------------
+// ELEMENTS
+//-------------------------------------------------------------------------------------------------
+h1 {
+  text-transform: $h1-text-transform;
+  font-weight: $h1-font-weight;
+  color: $h1-text-color;
+}
+//-------------------------------------------------------------------------------------------------
+// OBJECTS
+//-------------------------------------------------------------------------------------------------
+.container {
+  width: 100%;
+  margin: auto;
+  padding: $container-padding;
+}
+
+@media #{$media-large-screen-and-up} {
+  .container {
+    max-width: 768px;
+  }
+}
+
+img.responsive {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+//-------------------------------------------------------------------------------------------------
+// COMPONENTS
+//-------------------------------------------------------------------------------------------------
+.home__splash {
+  position: relative;
+  width: 100%;
+  height: 20em;
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: 0;
+
+    width: 100%;
+    height: 100%;
+    background-image: image-url('home/splash-cars.jpg');
+    background-size: cover;
+    background-position: 50% 50%;
+
+    $filter: grayscale(90%);
+    -webkit-filter: $filter;
+            filter: $filter;
+  }
+
+  * {
+    position: relative;
+    z-index: 1;
+
+    color: white;
+  }
+}

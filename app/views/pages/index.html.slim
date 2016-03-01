@@ -1,7 +1,9 @@
-h1 Sam&aring;ka
+/ Header
+= render partial: 'shared/header'
 
-- unless user_signed_in?
-  = link_to 'Sign in', new_user_session_path
-  = link_to 'Register', new_user_registration_path
-- else
-  = link_to 'Sign out', destroy_user_session_path, method: :delete
+/ Splash
+.home__splash
+  .container
+    h2 Carpooling done right
+    p Traveling in Singapore has never been easier
+

@@ -1,0 +1,11 @@
+.container.header-bar
+  / Logo
+  h1.header-bar__logo Sam&aring;ka
+
+  / Navigation links
+  nav.header-bar__navigation
+    - unless user_signed_in?
+      = link_to 'Sign in', new_user_session_path
+      = link_to 'Register', new_user_registration_path
+    - else
+      = link_to 'Sign out', destroy_user_session_path, method: :delete
