@@ -37,7 +37,6 @@ $nav-item-bg-hover: #f7f7f7;
   right: -1rem;
 
   cursor: pointer;
-  @include default-transition(background-color);
 
   // Burger shape
   &::before, &::after {
@@ -65,8 +64,6 @@ $nav-item-bg-hover: #f7f7f7;
     border: $nav-burger-segment-size solid white;
     box-sizing: content-box;
   }
-
-  &:hover { background-color: #f7f7f7; }
 }
 
 .navigation__link {
