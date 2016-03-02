@@ -25,6 +25,11 @@
   }
 
   &::after {
+    opacity: 0;
+    @include default-transition(opacity);
+  }
+
+  &.loaded::after {
     // Radial gradient
     background: transparent;
     $gradient-stop-center: rgba(0,0,0,0) 0%; // Transparent
@@ -38,6 +43,8 @@
     background: radial-gradient(ellipse at center, $gradient-stop-center,$gradient-stop-near-end,$gradient-stop-end);
     top: 0;
     left: 0;
+
+    opacity: 1;
   }
 
   * {

@@ -10,4 +10,10 @@ $(function() {
     $(ID_MENU_MOBILE_NAV).toggleClass('expanded');
   });
 
+  // Set all '.wait-for-load' classes to '.loaded'
+  // upon page fully loaded
+  $(window).bind('load', function() {
+    $('.wait-for-load').addClass('loaded').removeClass('wait-for-load');
+  });
+
 });
