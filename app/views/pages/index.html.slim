@@ -4,6 +4,10 @@
 / Splash
 .home__splash
   .container
-    h2 Carpooling done right
-    p Traveling in Singapore has never been easier
+    .splash__container
+      h2.splash__title Carpooling Done Right
+      p.splash__subtitle Traveling in Singapore has never been this easy.
+
+      = link_to new_user_registration_path do
+        .button Register &amp; Ride
 

@@ -6,8 +6,11 @@ $color-primary: #65bf71;
 /* Generic */
 $font-family-default: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $font-size-default: 16px;
+
 $font-weight-regular: 400;
 $font-weight-bold: 600;
+$font-weight-black: 900;
+
 
 /* Elements */
 $h1-font-weight: $font-weight-bold;
@@ -18,7 +21,8 @@ $h1-text-color: $color-primary;
 $container-padding: 0 1rem;
 
 /* Media Queries */
-$media-large-screen-and-up: "screen and (min-width: 48rem)";
+$media-large-screen-and-up: "screen and (min-width: 60rem)";
+$media-medium-screen-and-up: "screen and (min-width: 35rem)";
 
 //-------------------------------------------------------------------------------------------------
 // GENERIC
@@ -32,6 +36,17 @@ html, body {
   * { box-sizing: inherit; }
 }
 
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@import 'mixins';
+
 //-------------------------------------------------------------------------------------------------
 // ELEMENTS
 //-------------------------------------------------------------------------------------------------
@@ -39,6 +54,8 @@ h1 {
   text-transform: $h1-text-transform;
   font-weight: $h1-font-weight;
   color: $h1-text-color;
+
+  margin: 1rem 0;
 }
 //-------------------------------------------------------------------------------------------------
 // OBJECTS
@@ -61,35 +78,34 @@ img.responsive {
   height: auto;
 }
 
+.button {
+  display: block;
+  position: relative;
+  text-align: center;
+
+  font-size: 1.125rem;
+  padding: 1rem 2rem;
+  @include diagonal-gradient;
+
+  border-radius: 2rem;
+  @include default-transition(all);
+  @include box-shadow(0px 4px 8px 0px rgba(0,0,0,0.74));
+  transform: translate3d(0,0,0);
+
+  &:hover {
+    @include box-shadow(0px 4px 8px 0px rgba(138,255,125,0.34));
+    transform: translate3d(0,0, 100px);
+  }
+}
+
+@media #{$media-medium-screen-and-up} {
+  .button {
+    display: inline-block;
+  }
+}
+
 //-------------------------------------------------------------------------------------------------
 // COMPONENTS
 //-------------------------------------------------------------------------------------------------
-.home__splash {
-  position: relative;
-  width: 100%;
-  height: 20em;
-
-  &::before {
-    content: '';
-    display: block;
-    position: absolute;
-    z-index: 0;
-
-    width: 100%;
-    height: 100%;
-    background-image: image-url('home/splash-cars.jpg');
-    background-size: cover;
-    background-position: 50% 50%;
-
-    $filter: grayscale(90%);
-    -webkit-filter: $filter;
-            filter: $filter;
-  }
-
-  * {
-    position: relative;
-    z-index: 1;
-
-    color: white;
-  }
-}
+@import 'components/shared';
+@import 'components/home';

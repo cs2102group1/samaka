@@ -4,8 +4,10 @@
 
   / Navigation links
   nav.header-bar__navigation
-    - unless user_signed_in?
-      = link_to 'Sign in', new_user_session_path
-      = link_to 'Register', new_user_registration_path
-    - else
-      = link_to 'Sign out', destroy_user_session_path, method: :delete
+    .navigation--mobile__expand#mobileNavExpandButton
+    .navigation__links#mobileNavMenu
+      - unless user_signed_in?
+        = link_to 'Sign in', new_user_session_path, class: 'navigation__link'
+        = link_to 'Register', new_user_registration_path, class: 'navigation__link'
+      - else
+        = link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'navigation__link'

@@ -1,0 +1,41 @@
+%clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin transition($properties) {
+  -webkit-transition: $properties;
+     -moz-transition: $properties;
+       -o-transition: $properties;
+          transition: $properties;
+}
+
+@mixin default-transition($property: all) {
+  @include transition($property 0.25s ease-out 0s);
+}
+
+@mixin no-transition {
+  @include transition(none);
+}
+
+@mixin diagonal-gradient($start-color: #87E56A, $end-color: #4DB269) {
+  // Old browsers
+  background: $end-color;
+  // FF3.6-15
+  background: -moz-linear-gradient(-45deg, $start-color 0%, $end-color 100%);
+  // Chrome10-25,Safari5.1-6
+  background: -webkit-linear-gradient(-45deg, $start-color 0%,$end-color 100%);
+  // W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
+  background: linear-gradient(135deg, $start-color 0%,$end-color 100%);
+  // IE6-9 fallback on horizontal gradient
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$start-color}', endColorstr='#{$end-color}',GradientType=1 );
+}
+
+@mixin box-shadow($properties) {
+  -webkit-box-shadow: $properties;
+  -moz-box-shadow: $properties;
+  box-shadow: $properties;
+}

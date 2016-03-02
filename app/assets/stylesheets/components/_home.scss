@@ -1,0 +1,87 @@
+.home__splash {
+  position: relative;
+  width: 100%;
+  height: 20em;
+  display: flex;
+
+  &::before, &::after {
+    content: '';
+    display: block;
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  &::before {
+    background-image: image-url('home/splash-cars.jpg');
+    background-size: cover;
+    background-position: 50% 50%;
+
+    $filter: grayscale(100%);
+    -webkit-filter: $filter;
+            filter: $filter;
+  }
+
+  &::after {
+    // Radial gradient
+    background: transparent;
+    $gradient-stop-center: rgba(0,0,0,0) 0%; // Transparent
+    $gradient-stop-near-end: rgba(0,0,0,.57) 79%;
+    $gradient-stop-end: rgba(0,0,0,1) 100%;
+    // FF3.6-15
+    background: -moz-radial-gradient(center, ellipse cover, $gradient-stop-center, $gradient-stop-near-end, $gradient-stop-end);
+    // Chrome10-25,Safari5.1-6
+    background: -webkit-radial-gradient(center, ellipse cover, $gradient-stop-center,$gradient-stop-near-end,$gradient-stop-end);
+    // W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
+    background: radial-gradient(ellipse at center, $gradient-stop-center,$gradient-stop-near-end,$gradient-stop-end);
+    top: 0;
+    left: 0;
+  }
+
+  * {
+    position: relative;
+    z-index: 1;
+
+    color: white;
+  }
+
+}
+
+.splash__container {
+  max-width: 15.625rem;
+  margin: auto;
+}
+
+@media #{$media-large-screen-and-up} {
+  .home__splash {
+    height: 17em;
+  }
+
+  .splash__container {
+    max-width: 33.3333%;
+  }
+}
+
+.splash__title {
+  font-weight: $font-weight-black;
+  font-size: 2rem;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.splash__subtitle {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+@media #{$media-medium-screen-and-up} {
+  .splash__container {
+    margin: 0;
+  }
+
+  .splash__title, .splash__subtitle {
+    text-align: left;
+  }
+}
