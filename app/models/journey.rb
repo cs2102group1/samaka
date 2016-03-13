@@ -1,6 +1,7 @@
 class Journey < ActiveRecord::Base
   def self.all
-    ActiveRecord::Base.connection.execute("SELECT * FROM journeys;")
+    query = "SELECT * FROM journeys;"
+    self.find_by_sql(query)
   end
 
   def self.find(params)
@@ -13,14 +14,14 @@ class Journey < ActiveRecord::Base
   end
 
   def self.insert(params)
-    query = <<-INSERT
+    query = <<-INSERT_Q
             INSERT INTO journeys VALUES (#{params[:pickup_point]},
               #{params[:dropoff_point]},
               #{params[:price]},
               #{params[:available_seats]},
               #{params[:car_plate]},
               #{params[:start_time]});
-            INSERT
+            INSERT_Q
     self.find_by_sql(query)
   end
 
@@ -31,20 +32,22 @@ class Journey < ActiveRecord::Base
       k == 'start_time'
     end
     update_values = values.join(',')
-    query = <<-UPDATE journeys j
+    query = <<-UPDATE_Q
+            UPDATE journeys j
             SET #{update_values}
-            WHERE pickup_point = #{params[pickup_point]} AND
-            start_time = #{params[start_time]}
-            UPDATE
+            WHERE pickup_point = '#{params[:pickup_point]}' AND
+            start_time = '#{params[:start_time]}';
+            UPDATE_Q
     self.find_by_sql(query)
-    end
+  end
 
 
   def self.destroy(params)
-    query = <<-DELETE FROM journeys j
-            WHERE pickup_point = #{params[pickup_point]} AND
-            start_time = #{params[start_time]}
-            DELETE
-    self.find_by_sql(query)
+    query = <<-DELETE_Q
+            DELETE FROM journeys j
+            WHERE pickup_point = '#{params[:pickup_point]}' AND
+            start_time = '#{params[:start_time]}';
+            DELETE_Q
+    ActiveRecord::Base.connection.execute(query)
   end
 end
