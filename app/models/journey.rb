@@ -43,11 +43,21 @@ class Journey < ActiveRecord::Base
 
 
   def self.destroy(params)
-    query = <<-DELETE_Q
-            DELETE FROM journeys j
+    tables = ['drivers', 'passengers']
+    tables.each do |table|
+      fk_query = <<-DELETE_Q
+              DELETE FROM #{table}
+              WHERE start_time = '#{params[:start_time]}' AND
+              car_plate = '#{params[:car_plate]}';
+              DELETE_Q
+      ActiveRecord::Base.connection.execute(fk_query)
+    end
+
+    query = <<-DELETE
+            DELETE FROM journeys
             WHERE pickup_point = '#{params[:pickup_point]}' AND
-            start_time = '#{params[:start_time]}';
-            DELETE_Q
+            start_time = '#{params[:start_time]}'
+            DELETE
     ActiveRecord::Base.connection.execute(query)
   end
 end
