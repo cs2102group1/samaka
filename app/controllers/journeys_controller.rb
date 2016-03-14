@@ -12,11 +12,11 @@ class JourneysController < ApplicationController
   end
 
   def show
-    @journey = Journey.find(show_params)
+    @journey = Journey.find(find_params)
   end
 
   def edit
-    @journey = Journey.find(show_params)
+    @journey = Journey.find(find_params)
   end
 
   def update
@@ -24,7 +24,7 @@ class JourneysController < ApplicationController
   end
 
   def destroy
-    Journey.destroy(show_params)
+    Journey.destroy(delete_params)
   end
 
   private
@@ -32,19 +32,26 @@ class JourneysController < ApplicationController
   def create_params
     return nil unless params[:journey]
 
-    permit [:pickup_point, :dropoff_point, :price, :available_seats,
+    permit = [:pickup_point, :dropoff_point, :price, :available_seats,
       :car_plate, :start_time]
-
 
     params.require(:journey).permit(permit)
   end
 
   def update_params
     create_params
+
+    params.permit(permit)
   end
 
   def find_params
-    permit [:pickup_point, :start_time]
+    permit = [:pickup_point, :start_time]
+
+    params.permit(permit)
+  end
+
+  def delete_params
+    permit = [:pickup_point, :start_time, :car_plate]
 
     params.permit(permit)
   end
