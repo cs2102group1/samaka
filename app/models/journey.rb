@@ -35,13 +35,13 @@ class Journey < ActiveRecord::Base
 
   def self.update(params)
     values = []
-    columns = params.key.each do |k|
-      values << "#{k.to_s} = '#{params[k].to_s}'" unless k == 'pickup_point' ||
+    columns = params.keys.each do |k|
+      values << "#{k.to_s} = '#{params[k]}'" unless k == 'pickup_point' ||
       k == 'start_time'
     end
     update_values = values.join(',')
     query = <<-UPDATE_J
-            UPDATE journeys j
+            UPDATE journeys
             SET #{update_values}
             WHERE pickup_point = '#{params[:pickup_point]}' AND
             start_time = '#{params[:start_time]}';
