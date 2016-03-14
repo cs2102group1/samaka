@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
+  has_many :drivers, :passengers, dependent: :destroy
 
   # Constants
   STRING_ROLE_MEMBER = 'member'
@@ -13,6 +14,11 @@ class User < ActiveRecord::Base
   def self.all
     query = "SELECT * FROM users;"
     self.find_by_sql(query)
+  end
+
+  def self.get_user(username)
+    query = "SELECT * FROM users WHERE username='#{username}'"
+    User.find_by_sql(query)
   end
 
   def self.update(params)
