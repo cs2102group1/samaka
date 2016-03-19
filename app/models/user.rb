@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
   def self.get_user(username)
     query = "SELECT * FROM users WHERE username='#{username}'"
-    User.find_by_sql(query)
+    self.find_by_sql(query)
   end
 
   def self.update(params)
@@ -34,6 +34,11 @@ class User < ActiveRecord::Base
             UPDATE_U
     self.find_by_sql(query)
   end
+
+  def self.delete(username) {
+    query = "DELETE FROM users WHERE username = '#{username}'"
+    self.find_by_sql(query);
+  }
 
   private
 
