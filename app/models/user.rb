@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_many :drivers, :passengers, dependent: :destroy
+  has_many :drivers, dependent: :destroy
+  has_many :passengers, dependent: :destroy
 
   # Constants
   STRING_ROLE_MEMBER = 'member'
@@ -16,7 +17,7 @@ class User < ActiveRecord::Base
     self.find_by_sql(query)
   end
 
-  def self.get_user(username)
+  def self.get_user(username, email)
     query = "SELECT * FROM users WHERE username='#{username}'"
     self.find_by_sql(query)
   end
@@ -35,10 +36,10 @@ class User < ActiveRecord::Base
     self.find_by_sql(query)
   end
 
-  def self.delete(username) {
-    query = "DELETE FROM users WHERE username = '#{username}'"
+  def self.delete(username)
+    query = "DELETE FROM users WHERE username ='#{username}'"
     self.find_by_sql(query);
-  }
+  end
 
   private
 
