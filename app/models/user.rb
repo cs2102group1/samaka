@@ -36,9 +36,45 @@ class User < ActiveRecord::Base
     self.find_by_sql(query)
   end
 
-  def self.delete(username)
-    query = "DELETE FROM users WHERE username ='#{username}'"
-    self.find_by_sql(query);
+  def self.delete(params)
+    journeys = []
+    driver_query = <<-USER_DRIVER
+                  SELECT start_time, car_plate FROM drivers
+                  WHERE email = '#{params[:email]}';
+                  USER_DRIVER
+    passenger_query = <<-USER_PSSNGR
+                  SELECT start_time, car_plate FROM passengers
+                  WHERE email = '#{params[:email]}';
+                  USER_PSSNGR
+
+    driver_journeys = self.find_by_sql(driver_query)
+    self.find_by_sql("DELETE FROM drivers
+                      WHERE email = '#{params[:email]}';")
+
+    passenger_journeys = self.find_by_sql(passenger_query)
+    self.find_by_sql("DELETE FROM passengers
+                      WHERE email = '#{params[:email]}';")
+
+    driver_journeys.each do |u|
+      self.find_by_sql("DELETE FROM passengers
+                       WHERE start_time = '#{u.start_time}' AND
+                       car_plate = '#{u.car_plate}';")
+      self.find_by_sql("DELETE FROM journeys
+                       WHERE start_time = '#{u.start_time}' AND
+                       car_plate = '#{u.car_plate}';")
+    end
+
+    passenger_journeys.each do |u|
+      self.find_by_sql("DELETE FROM drivers
+                       WHERE start_time = '#{u.start_time}' AND
+                       car_plate = '#{u.car_plate}';")
+      self.find_by_sql("DELETE FROM journeys
+                       WHERE start_time = '#{u.start_time}' AND
+                       car_plate = '#{u.car_plate}';")
+    end
+
+    user_query = "DELETE FROM users WHERE email = '#{params[:email]}';"
+    self.find_by_sql(user_query);
   end
 
   private
