@@ -48,6 +48,10 @@ group :development, :test do
   gem 'factory_girl_rails'
   # And Database Cleaner
   gem 'database_cleaner'
+
+  # Populator and faker for generating fake data
+  gem 'populator'
+  gem 'faker'
 end
 
 group :development do
@@ -64,4 +68,3 @@ group :production do
   # For heroku deployment
   gem 'rails_12factor'
 end
-

@@ -10,6 +10,25 @@ class User < ActiveRecord::Base
 
   before_validation :create_role
 
+  def self.all
+    query = "SELECT * FROM users;"
+    self.find_by_sql(query)
+  end
+
+  def self.update(params)
+    values = []
+    columns = params.keys.each do |k|
+      values << "#{k.to_s} = '#{params[k]}'" unless k == 'email'
+    end
+    update_values = values.join(',')
+    query = <<-UPDATE_U
+            UPDATE users
+            SET #{update_values}
+            WHERE email = '#{params[:email]}';
+            UPDATE_U
+    self.find_by_sql(query)
+  end
+
   private
 
   def create_role

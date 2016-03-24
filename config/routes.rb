@@ -8,4 +8,10 @@ Rails.application.routes.draw do
 
   # Root path
   root to: 'pages#index'
+
+  namespace :admin do
+    resources :users
+  end
+
+  resources :journeys
 end
