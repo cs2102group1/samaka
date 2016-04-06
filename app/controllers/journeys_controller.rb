@@ -18,7 +18,7 @@ class JourneysController < ApplicationController
   end
 
   def edit
-    @journey = Journey.find(find_params)
+    @journey = Journey.find(find_params).first
   end
 
   def update
@@ -47,8 +47,7 @@ class JourneysController < ApplicationController
   end
 
   def find_params
-    permit = [:pickup_point, :start_time]
-
+    permit = [:car_plate, :start_time]
     params.permit(permit)
   end
 

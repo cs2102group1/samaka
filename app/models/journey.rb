@@ -2,16 +2,16 @@ class Journey < ActiveRecord::Base
   def to_param
     {start_time: start_time, car_plate: car_plate}
   end
-  
+
   def self.all
-    query = "SELECT * FROM journeys;"
+    query = "SELECT * FROM journeys ORDER BY age(start_time);"
     self.find_by_sql(query)
   end
 
   def self.find(params)
     query = <<-FIND
             SELECT * FROM journeys j WHERE
-            j.pickup_point = '#{params[:pickup_point]}' AND
+            j.car_plate = '#{params[:car_plate]}' AND
             j.start_time = '#{params[:start_time]}';
             FIND
     self.find_by_sql(query)
