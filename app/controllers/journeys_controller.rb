@@ -2,7 +2,7 @@ class JourneysController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    Journey.all
+    @journeys = Journey.all
   end
 
   def new

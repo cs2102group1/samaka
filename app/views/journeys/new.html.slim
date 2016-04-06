@@ -1,0 +1,12 @@
+.container
+  .row
+    h2 New Carpool Journey
+  .row
+    .col-sm-12
+      = simple_form_for @journey do |f|
+        = f.input :pickup_point
+        = f.input :dropoff_point
+        = f.input :price
+        = f.input :available_seats
+        = f.input :car_plate, placeholder: current_user.car_plates
+        = f.button :submit

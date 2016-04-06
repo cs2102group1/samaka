@@ -1,0 +1,18 @@
+.container
+  .row
+    h2 Journeys
+  .row
+    .col-sm-12
+      table#journeys
+        th Pickup Point
+        th Dropoff
+        th Available Seats
+        th Car Plate
+        th Price
+        - @journeys.each do |j|
+          tr
+            td = j.pickup_point
+            td = j.dropoff_point
+            td = j.available_seats
+            td = j.car_plate
+            td = j.price
