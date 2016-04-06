@@ -1,4 +1,8 @@
 class Journey < ActiveRecord::Base
+  def to_param
+    {start_time: start_time, car_plate: car_plate}
+  end
+  
   def self.all
     query = "SELECT * FROM journeys;"
     self.find_by_sql(query)
