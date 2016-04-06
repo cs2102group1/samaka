@@ -1,29 +1,4 @@
-//-------------------------------------------------------------------------------------------------
-// SETTINGS
-//-------------------------------------------------------------------------------------------------
-$color-primary: #65bf71;
-
-/* Generic */
-$font-family-default: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$font-size-default: 16px;
-
-$font-weight-regular: 400;
-$font-weight-bold: 600;
-$font-weight-black: 900;
-
-
-/* Elements */
-$h1-font-weight: $font-weight-bold;
-$h1-text-transform: lowercase;
-$h1-text-color: $color-primary;
-
-/* Objects */
-$container-padding: 0 1rem;
-
-/* Media Queries */
-$media-large-screen-and-up: "screen and (min-width: 60rem)";
-$media-medium-screen-and-up: "screen and (min-width: 35rem)";
-
+@import "settings";
 //-------------------------------------------------------------------------------------------------
 // GENERIC
 //-------------------------------------------------------------------------------------------------
@@ -37,6 +12,7 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-titles;
   margin-top: 0;
 }
 
@@ -72,6 +48,17 @@ h1 {
   }
 }
 
+.center {
+  margin: auto;
+  width: 100%;
+}
+
+@media #{$media-medium-screen-and-up} {
+  .center {
+    max-width: 380px;
+  }
+}
+
 img.responsive {
   width: 100%;
   max-width: 100%;
@@ -84,10 +71,13 @@ img.responsive {
   text-align: center;
 
   font-size: 1.125rem;
-  padding: 1rem 2rem;
+  padding: .75rem 2.75rem;
   @include diagonal-gradient;
 
+  border: none;
   border-radius: 2rem;
+
+  color: white;
   @include default-transition(all);
   @include box-shadow(0px 4px 8px 0px rgba(0,0,0,0.74));
   transform: translate3d(0,0,0);
@@ -95,6 +85,15 @@ img.responsive {
   &:hover {
     @include box-shadow(0px 4px 8px 0px rgba(138,255,125,0.34));
     transform: translate3d(0,0, 100px);
+  }
+
+  &.fat {
+    padding: 1rem 2rem;
+  }
+
+  &.light {
+    @include diagonal-gradient(#9FEE58, #69C54D);
+    @include box-shadow(0px 4px 8px 0px rgba(172,243,93,0.62));
   }
 }
 

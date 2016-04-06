@@ -1,0 +1,71 @@
+@import "settings";
+@import "mixins";
+
+$section-title-fg-color: #4D4D4D;
+
+h2 {
+  font-family: $font-family-default;
+  color: $section-title-fg-color;
+  text-align: center;
+}
+
+form {
+  padding: 0 2em;
+  margin-bottom: 3em;
+}
+
+.field {
+  position: relative;
+  margin-bottom: .5rem;
+
+  .fa {
+    position: absolute;
+    top: 1rem;
+    left: .75rem;
+    color: #666;
+
+    font-size: 1.25rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    outline: none;
+    border: 1px solid #C4C4C4;
+
+    @include border-radius(.25rem);
+    padding: .875rem .75rem .875rem 2.125rem;
+
+    @include default-transition(border-color);
+
+    &:focus {
+      border-color: $color-primary;
+    }
+  }
+
+  input[type="checkbox"] {
+    outline: none;
+
+    & + label {
+      margin-left: .5rem;
+      cursor: pointer;
+    }
+  }
+}
+
+.actions {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.shared-links a {
+  display: inline-block;
+  margin-bottom: .5rem;
+  border-bottom: 1px solid #ddd;
+  @include default-transition(border-bottom-color);
+
+  &:hover {
+    border-bottom-color: $color-primary;
+  }
+}
