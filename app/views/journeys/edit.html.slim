@@ -4,6 +4,7 @@
   .row
     .col-sm-12
       = simple_form_for @journey, url: {action: "edit"} do |f|
+        = f.input :start_time
         = f.input :pickup_point
         = f.input :dropoff_point
         = f.input :price
