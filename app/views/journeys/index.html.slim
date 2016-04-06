@@ -12,7 +12,7 @@
         - @journeys.each do |j|
           tr
             td = j.pickup_point
-            td = j.dropoff_point
+            td = link_to j.dropoff_point, journey_path(j.to_param)
             td = j.available_seats
             td = j.car_plate
             td = j.price
