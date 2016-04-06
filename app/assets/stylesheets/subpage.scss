@@ -20,11 +20,9 @@ form {
 
   .fa {
     position: absolute;
-    top: 1rem;
+    top: 1.125rem;
     left: .75rem;
     color: #666;
-
-    font-size: 1.25rem;
   }
 
   input[type="text"],
@@ -57,6 +55,15 @@ form {
 .actions {
   margin-top: 2rem;
   text-align: center;
+}
+
+.shared-links__title {
+  color: $color-primary;
+  font-size: 1rem;
+  font-weight: normal;
+  text-align: left;
+  margin-bottom: .25rem;
+  text-transform: uppercase;
 }
 
 .shared-links a {

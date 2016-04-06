@@ -2,7 +2,7 @@ h2 Sign in
 
 = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
   .field
-    i.fa.fa-user
+    i.fa.fa-at
     = f.email_field :email, autofocus: true, placeholder: "Email address"
 
   .field
