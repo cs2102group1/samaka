@@ -1,0 +1,12 @@
+.container
+  .row
+    h2 Leaderboard
+  .row
+    .col-sm-12
+      table#users
+        th username
+        th credit
+        - @users.each do |u|
+          tr
+            td = u.username
+            td = u.credit
