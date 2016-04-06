@@ -4,6 +4,8 @@
   .row
     .col-sm-12
       table#journeys
+        th Start Date
+        th Start Time
         th Pickup Point
         th Dropoff
         th Available Seats
@@ -11,8 +13,10 @@
         th Price
         - @journeys.each do |j|
           tr
+            td = j.start_time.strftime('%d %b')
+            td = j.start_time.strftime('%H:%M %P')
             td = j.pickup_point
-            td = link_to j.dropoff_point, journey_path(j.to_param)
+            td = link_to j.dropoff_point, edit_journey_path(j.to_param)
             td = j.available_seats
             td = j.car_plate
             td = j.price
