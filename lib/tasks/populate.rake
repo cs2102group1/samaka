@@ -16,6 +16,7 @@ namespace :db do
                         DELETE FROM drivers;
                         DELETE FROM passengers;
                         DELETE FROM journeys;
+                        DELETE FROM cars;
                         DELETE FROM users;
                         DELETE_ALL
     ActiveRecord::Base.connection.execute(delete_all_query)
@@ -47,8 +48,7 @@ namespace :db do
     end
 
     Journey.populate 300 do |j|
-      user_no = gen.rand(0..cars.length)
-      car = cars[user_no]
+      car = cars[gen.rand(0..cars.length)]
       j.pickup_point = Faker::Address.street_address
       j.dropoff_point = Faker::Address.street_address
       j.price = Faker::Commerce.price
