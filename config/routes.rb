@@ -13,5 +13,9 @@ Rails.application.routes.draw do
     resources :users
   end
 
-  resources :journeys
+  get 'journeys', to: 'journeys#index'
+
+  scope "journeys/:start_time/" do
+    resources :journeys, path: "", param: "car_plate", except: :index
+  end
 end
