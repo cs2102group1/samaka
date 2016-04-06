@@ -16,9 +16,12 @@ html
 
     / Main content
     .container
-      p.notice= notice
-      p.alert= alert
-      .center= yield
+      .center
+        - if notice
+          p.notice= notice
+        - if alert
+          p.alert= alert
+        = yield
 
     / Scripts
     = javascript_include_tag 'application', 'data-turbolinks-track' => true

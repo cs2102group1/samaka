@@ -3,6 +3,20 @@
 
 $section-title-fg-color: #4D4D4D;
 
+.notice,
+.alert {
+  display: block;
+  border: 1px solid;
+  border-radius: .25rem;
+  padding: 1rem;
+}
+
+.alert {
+  border-color: #B36060;
+  background-color: #F6B9B9;
+  color: #7C2A29;
+}
+
 h2 {
   font-family: $font-family-default;
   color: $section-title-fg-color;
