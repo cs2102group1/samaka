@@ -24,6 +24,7 @@ namespace :db do
   desc 'Create fake journeys'
   task :populate_journeys => :environment do
     user_emails = []
+    cars = []
 
     300.times do |n|
       User.populate 1 do |u|
@@ -34,15 +35,25 @@ namespace :db do
         u.phone_number = Faker::PhoneNumber.phone_number
         u.encrypted_password = Faker::Internet.password
         u.sign_in_count = 1
+        u.credit = Faker::Commerce.price
+        if gen.rand() > 0.5
+          Car.populate 1 do |c|
+            c.car_plate = Faker::Number.hexadecimal(6)
+            c.owner = u.email
+            cars << c
+          end
+        end
       end
     end
 
     Journey.populate 300 do |j|
+      user_no = gen.rand(0..cars.length)
+      car = cars[user_no]
       j.pickup_point = Faker::Address.street_address
       j.dropoff_point = Faker::Address.street_address
       j.price = Faker::Commerce.price
       j.available_seats = gen.rand(1..4)
-      j.car_plate = Faker::Number.hexadecimal(6)
+      j.car_plate = car.car_plate
       j.start_time = 3.days.ago..Time.now
 
       Passenger.populate 1 do |pa|
@@ -53,7 +64,7 @@ namespace :db do
       end
 
       Driver.populate 1 do |d|
-        d.email = user_emails[gen.rand(0..299)]
+        d.email = car.owner
         d.start_time = j.start_time
         d.car_plate = j.car_plate
       end
