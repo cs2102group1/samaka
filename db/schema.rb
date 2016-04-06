@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20160224032527) do
     t.string   "username"
     t.string   "role",                                null: false
     t.string   "phone_number",                        null: false
-    t.float    "credit",                              null: false
+    t.float    "credit"
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
