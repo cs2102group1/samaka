@@ -2,6 +2,12 @@
   .row
     h2 Journeys
   .row
+    ul
+      li = link_to 'New Journey', journeys_new_path
+      li = link_to 'New Car', new_car_path
+      li = link_to 'Journeys I have taken as Passenger', '?q=passengers'
+      li = link_to 'Journeys I have taken as Driver', '?q=drivers'
+  .row
     .col-sm-12
       table#journeys
         th Start Date
