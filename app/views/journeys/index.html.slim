@@ -11,6 +11,7 @@
         th Available Seats
         th Car Plate
         th Price
+        th Onboard?
         - @journeys.each do |j|
           tr
             td = j.start_time.strftime('%d %b')
@@ -19,4 +20,6 @@
             td = link_to j.dropoff_point, edit_journey_path(j.to_param)
             td = j.available_seats
             td = j.car_plate
-            td = j.price
+            td = j.price     
+            td = link_to Passenger.check(current_user.email, j) ? 'Onboard!' : '', "/passengers/#{j.start_time}/#{j.car_plate}/false", method: :put
+            td = link_to 'Join', passengers_path(email: current_user.email, start_time: j.start_time, car_plate: j.car_plate, onboard: true), method: :post
