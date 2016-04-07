@@ -4,7 +4,7 @@ class Journey < ActiveRecord::Base
   end
 
   def self.all
-    query = "SELECT * FROM journeys ORDER BY age(start_time);"
+    query = "SELECT * FROM journeys ORDER BY age(start_time) LIMIT 10;"
     self.find_by_sql(query)
   end
 
