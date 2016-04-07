@@ -2,7 +2,11 @@ class JourneysController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @journeys = Journey.all
+    if params[:q]
+      @journeys = Journey.filter(params[:q], current_user.email)
+    else
+      @journeys = Journey.all
+    end
   end
 
   def new
