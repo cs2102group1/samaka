@@ -2,6 +2,9 @@
   .row
     h2 New Carpool Journey
   .row
+    ul
+      li = link_to 'Back', journeys_path
+  .row
     .col-sm-12
       = simple_form_for @journey do |f|
         = f.input :start_time
