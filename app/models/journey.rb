@@ -19,20 +19,20 @@ class Journey < ActiveRecord::Base
 
   def self.insert(params)
     query = <<-INSERT_J
-            INSERT INTO journeys VALUES (#{params[:pickup_point]},
-              #{params[:dropoff_point]},
-              #{params[:price]},
-              #{params[:available_seats]},
-              #{params[:car_plate]},
-              #{params[:start_time]});
+            INSERT INTO journeys VALUES ('#{params[:pickup_point]}',
+              '#{params[:dropoff_point]}',
+              '#{params[:price]}',
+              '#{params[:available_seats]}',
+              '#{params[:car_plate]}',
+              '#{params[:start_time]}');
             INSERT_J
 
     self.find_by_sql(query)
     fk_query = <<-INSERT_FK_J
               INSERT INTO drivers (email, start_time, car_plate)
-              VALUES (#{params[:email]},
-              #{params[:start_time]},
-              #{params[:car_plate]});
+              VALUES ('#{params[:email]}',
+              '#{params[:start_time]}',
+              '#{params[:car_plate]}');
               INSERT_FK_J
     self.find_by_sql(fk_query)
   end
