@@ -8,3 +8,5 @@
         - @cars.each do |c|
           tr
             td = c.car_plate
+            td = link_to 'Edit', edit_car_path(c)
+            td = link_to 'Delete', car_path(c), method: :delete
