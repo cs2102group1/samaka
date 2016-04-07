@@ -6,9 +6,14 @@ class CreateTables < ActiveRecord::Migration
       username VARCHAR,
       role VARCHAR NOT NULL,
       phone_number VARCHAR NOT NULL,
-      car_plates VARCHAR[] DEFAULT array[]::varchar[],
+      credit REAL,
       PRIMARY KEY (email),
       UNIQUE (username)
+    );
+    CREATE TABLE cars(
+      car_plate VARCHAR PRIMARY KEY,
+      owner VARCHAR NOT NULL,
+      FOREIGN KEY(owner) REFERENCES users(email)
     );
     CREATE TABLE journeys(
       pickup_point VARCHAR NOT NULL,

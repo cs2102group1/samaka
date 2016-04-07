@@ -1,0 +1,28 @@
+//-------------------------------------------------------------------------------------------------
+// SETTINGS
+//-------------------------------------------------------------------------------------------------
+$color-primary: #65bf71;
+
+/* Generic */
+$font-family-default: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family-titles: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+$font-size-default: 16px;
+
+$font-weight-regular: 400;
+$font-weight-bold: 600;
+$font-weight-black: 900;
+
+
+/* Elements */
+$h1-font-weight: $font-weight-bold;
+$h1-text-transform: lowercase;
+$h1-text-color: $color-primary;
+
+/* Objects */
+$container-padding: 0 1rem;
+
+/* Media Queries */
+$media-large-screen-and-up: "screen and (min-width: 60rem)";
+$media-medium-screen-and-up: "screen and (min-width: 35rem)";
+

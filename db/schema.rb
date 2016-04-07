@@ -16,6 +16,10 @@ ActiveRecord::Schema.define(version: 20160224032527) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "cars", primary_key: "car_plate", force: :cascade do |t|
+    t.string "owner", null: false
+  end
+
   create_table "drivers", id: false, force: :cascade do |t|
     t.string   "email",            null: false
     t.datetime "start_time",       null: false
@@ -50,7 +54,7 @@ ActiveRecord::Schema.define(version: 20160224032527) do
     t.string   "username"
     t.string   "role",                                null: false
     t.string   "phone_number",                        null: false
-    t.string   "car_plates",                                       array: true
+    t.float    "credit"
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -71,6 +75,7 @@ ActiveRecord::Schema.define(version: 20160224032527) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "users_username_key", unique: true, using: :btree
 
+  add_foreign_key "cars", "users", column: "owner", primary_key: "email", name: "cars_owner_fkey"
   add_foreign_key "drivers", "journeys", column: "start_time", primary_key: "start_time", name: "drivers_start_time_fkey"
   add_foreign_key "drivers", "users", column: "email", primary_key: "email", name: "drivers_email_fkey"
   add_foreign_key "passengers", "journeys", column: "start_time", primary_key: "start_time", name: "passengers_start_time_fkey"

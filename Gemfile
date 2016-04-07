@@ -29,6 +29,9 @@ gem 'slim-rails'
 # Use devise for authentication
 gem 'devise'
 
+# Use font-awesome for icons
+gem 'font-awesome-sass'
+
 gem 'tzinfo'
 gem 'tzinfo-data', platforms: [:x64_mingw, :mingw, :mswin]
 

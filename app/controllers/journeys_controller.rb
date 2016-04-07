@@ -1,4 +1,6 @@
 class JourneysController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     Journey.all
   end
