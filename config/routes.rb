@@ -14,8 +14,12 @@ Rails.application.routes.draw do
   end
 
   get 'journeys', to: 'journeys#index'
+  get 'journeys/new', to: 'journeys#new'
+  post 'journeys', to: 'journeys#create'
 
   scope "journeys/:start_time/" do
-    resources :journeys, path: "", param: "car_plate", except: :index
+    resources :journeys, path: "", param: "car_plate", except: [:index, :new, :create]
   end
+
+  resources :cars, param: "car_plate", except: [:show]
 end

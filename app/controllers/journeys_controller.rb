@@ -6,11 +6,17 @@ class JourneysController < ApplicationController
   end
 
   def new
+    @car_plates = current_user.car_plates
     @journey = Journey.new
   end
 
   def create
-    Journey.insert(create_params)
+    j = params[:journey]
+    date = [j['start_time(1i)'], j['start_time(2i)'], j['start_time(3i)']].join('-')
+    time = [j['start_time(4i)'], j['start_time(5i)']].join(':')
+    datetime = date + ' ' + time
+    Journey.insert(create_params, datetime)
+    redirect_to :back
   end
 
   def show
@@ -33,9 +39,8 @@ class JourneysController < ApplicationController
 
   def create_params
     return nil unless params[:journey]
-
     permit = [:pickup_point, :dropoff_point, :price, :available_seats,
-      :car_plate, :start_time]
+      :car_plate, :email, :start_time]
 
     params.require(:journey).permit(permit)
   end
