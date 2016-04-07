@@ -2,6 +2,12 @@ class Passenger < ActiveRecord::Base
   has_many :journeys, dependent: :destroy
 
   def self.insert(params)
+    journey = {start_time: params[:start_time], car_plate: params[:car_plate]}
+    if self.check(params[:email], journey, 'false')
+      self.update({onboard: true, start_time: params[:start_time], car_plate: params[:car_plate]}, params[:email])
+      return
+    end
+
     query = "INSERT INTO passengers (email, start_time, car_plate, onboard) VALUES('#{params[:email]}', '#{params[:start_time]}', '#{params[:car_plate]}', '#{params[:onboard]}');"
     ActiveRecord::Base.connection.execute(query)
   end
@@ -32,8 +38,8 @@ class Passenger < ActiveRecord::Base
     ActiveRecord::Base.connection.execute(query)
   end
 
-  def self.check(passenger, j)
-    query = "SELECT * FROM passengers WHERE start_time = '#{j.start_time}' AND car_plate = '#{j.car_plate}' AND email = '#{passenger}' AND onboard = TRUE;"
+  def self.check(passenger, j, cond)
+    query = "SELECT * FROM passengers WHERE start_time = '#{j[:start_time]}' AND car_plate = '#{j[:car_plate]}' AND email = '#{passenger}' AND onboard = #{cond};"
     !ActiveRecord::Base.connection.execute(query).values.empty?
   end
 end
