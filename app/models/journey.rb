@@ -3,9 +3,8 @@ class Journey < ActiveRecord::Base
     {start_time: start_time, car_plate: car_plate}
   end
 
-  def self.all
-    query = "SELECT * FROM journeys ORDER BY age(start_time) LIMIT 10;"
-    self.find_by_sql(query)
+  def self.search(page)
+    paginate(per_page: 20, page: page).order(start_time: :desc)
   end
 
   def self.find(params)

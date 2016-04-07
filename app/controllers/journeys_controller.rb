@@ -2,7 +2,7 @@ class JourneysController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @journeys = Journey.all
+    @journeys = Journey.search(params[:page])
   end
 
   def new

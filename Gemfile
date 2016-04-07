@@ -34,6 +34,8 @@ gem 'font-awesome-sass'
 
 gem 'simple_form'
 
+gem 'will_paginate', '~> 3.0.6'
+
 gem 'tzinfo'
 gem 'tzinfo-data', platforms: [:x64_mingw, :mingw, :mswin]
 
