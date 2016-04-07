@@ -3,7 +3,7 @@
     h2 Edit journey
   .row
     .col-sm-12
-      = simple_form_for @journey, url: {action: "edit"} do |f|
+      = simple_form_for @journey, url: {action: "update"} do |f|
         = f.input :start_time
         = f.input :pickup_point
         = f.input :dropoff_point
