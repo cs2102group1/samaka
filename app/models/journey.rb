@@ -1,4 +1,7 @@
 class Journey < ActiveRecord::Base
+  has_many :passengers
+  has_one :drivers
+  
   def to_param
     {start_time: start_time, car_plate: car_plate}
   end
