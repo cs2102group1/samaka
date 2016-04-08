@@ -20,6 +20,21 @@ class User < ActiveRecord::Base
     ActiveRecord::Base.connection.execute(query).values.flatten
   end
 
+
+  def self.update(params, email)
+    values = []
+    columns = params.keys.each do |k|
+      values << "#{k.to_s} = '#{params[k]}'" unless k == 'email'
+    end
+    update_values = values.join(',')
+    query = <<-UPDATE_U
+            UPDATE users
+            SET #{update_values}
+            WHERE email = '#{email}'
+            UPDATE_U
+    ActiveRecord::Base.connection.execute(query)
+  end
+
   private
 
   def create_role
