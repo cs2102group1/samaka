@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20160224032527) do
     t.boolean  "onboard",       default: true, null: false
   end
 
-  add_index "passengers", ["start_time", "car_plate"], name: "passengers_start_time_car_plate_key", unique: true, using: :btree
+  add_index "passengers", ["email"], name: "passengers_email_key", unique: true, using: :btree
 
   create_table "users", primary_key: "email", force: :cascade do |t|
     t.string   "username"

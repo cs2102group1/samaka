@@ -42,7 +42,7 @@ class CreateTables < ActiveRecord::Migration
       driver_review TEXT,
       onboard BOOLEAN NOT NULL DEFAULT true,
       PRIMARY KEY (email, start_time, car_plate),
-      UNIQUE (start_time, car_plate),
+      UNIQUE (email),
       FOREIGN KEY (start_time, car_plate) REFERENCES journeys(start_time, car_plate)
     );
     SQL
