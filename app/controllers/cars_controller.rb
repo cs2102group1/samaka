@@ -1,4 +1,5 @@
 class CarsController < ApplicationController
+  layout 'subpage'
   def index
     @cars = Car.find(owner: current_user.email)
   end
