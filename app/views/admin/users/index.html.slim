@@ -4,9 +4,9 @@
   .row
     .col-sm-12
       table#users
-        th username
-        th credit
+        th Username
+        th Most Expensive Ride Paid For
         - @users.each do |u|
           tr
-            td = u.username
-            td = u.credit
+            td = u[0]
+            td align='center' = u[1]

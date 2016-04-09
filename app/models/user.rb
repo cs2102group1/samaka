@@ -20,6 +20,18 @@ class User < ActiveRecord::Base
     ActiveRecord::Base.connection.execute(query).values.flatten
   end
 
+  def self.leaderboard
+    query = <<-LEADERBOARD
+            SELECT u.username, MAX(j.price)
+            FROM users u, passengers p, journeys j
+            WHERE u.email = p.email
+            AND j.start_time = p.start_time
+            GROUP BY u.email, u.username
+            ORDER BY MAX(j.price) DESC;
+            LEADERBOARD
+    ActiveRecord::Base.connection.execute(query).values
+  end
+
   private
 
   def create_role

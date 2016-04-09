@@ -1,5 +1,6 @@
 class Admin::UsersController < ApplicationController
+  layout 'subpage'
   def index
-    @users = User.all.order(credit: :desc)
+    @users = User.leaderboard
   end
 end
