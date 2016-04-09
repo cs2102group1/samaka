@@ -7,7 +7,7 @@
     .splash__container
       h2.splash__title Carpooling Done Right
       p.splash__subtitle Traveling in Singapore has never been this easy.
-
-      = link_to new_user_registration_path do
-        .button.fat Register &amp; Ride
+      - unless user_signed_in?
+          = link_to new_user_registration_path do
+            .button.fat Register &amp; Ride
 
