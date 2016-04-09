@@ -28,8 +28,6 @@ ActiveRecord::Schema.define(version: 20160224032527) do
     t.text     "passenger_review"
   end
 
-  add_index "drivers", ["start_time", "car_plate"], name: "drivers_start_time_car_plate_key", unique: true, using: :btree
-
   create_table "journeys", id: false, force: :cascade do |t|
     t.string   "pickup_point",    null: false
     t.string   "dropoff_point",   null: false
@@ -47,8 +45,6 @@ ActiveRecord::Schema.define(version: 20160224032527) do
     t.text     "driver_review"
     t.boolean  "onboard",       default: true, null: false
   end
-
-  add_index "passengers", ["email"], name: "passengers_email_key", unique: true, using: :btree
 
   create_table "users", primary_key: "email", force: :cascade do |t|
     t.string   "username"
