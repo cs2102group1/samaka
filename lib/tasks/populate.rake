@@ -48,7 +48,7 @@ namespace :db do
     end
 
     Journey.populate 300 do |j|
-      car = cars[gen.rand(0..cars.length)]
+      car = cars[gen.rand(0..cars.length-1)]
       j.pickup_point = Faker::Address.street_address
       j.dropoff_point = Faker::Address.street_address
       j.price = Faker::Commerce.price

@@ -12,6 +12,14 @@ class User < ActiveRecord::Base
 
   before_validation :create_role
 
+  def car_plates
+    query = <<-CARPLATES
+            SELECT car_plate FROM cars c WHERE
+             c.owner = '#{email}';
+            CARPLATES
+    ActiveRecord::Base.connection.execute(query).values.flatten
+  end
+
   private
 
   def create_role

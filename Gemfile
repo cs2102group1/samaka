@@ -32,6 +32,8 @@ gem 'devise'
 # Use font-awesome for icons
 gem 'font-awesome-sass'
 
+gem 'simple_form'
+
 gem 'tzinfo'
 gem 'tzinfo-data', platforms: [:x64_mingw, :mingw, :mswin]
 

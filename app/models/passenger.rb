@@ -1,10 +1,15 @@
 class Passenger < ActiveRecord::Base
-  belongs_to :user
   has_many :journeys, dependent: :destroy
 
-  def self.all
-    query = "SELECT * FROM passengers"
-    self.find_by_sql(query)
+  def self.insert(params)
+    journey = {start_time: params[:start_time], car_plate: params[:car_plate]}
+    if self.check(params[:email], journey, 'false')
+      self.update({onboard: true, start_time: params[:start_time], car_plate: params[:car_plate]}, params[:email])
+      return
+    end
+
+    query = "INSERT INTO passengers (email, start_time, car_plate, onboard) VALUES('#{params[:email]}', '#{params[:start_time]}', '#{params[:car_plate]}', '#{params[:onboard]}');"
+    ActiveRecord::Base.connection.execute(query)
   end
 
   def self.find(params)
@@ -16,7 +21,7 @@ class Passenger < ActiveRecord::Base
     self.find_by_sql(query)
   end
 
-  def self.update(params)
+  def self.update(params, email)
     values = []
     columns = params.keys.each do |k|
       values << "#{k.to_s} = '#{params[k]}'" unless k == 'start_time' ||
@@ -26,8 +31,15 @@ class Passenger < ActiveRecord::Base
     query = <<-UPDATE_P
             UPDATE passengers
             SET #{update_values}
-            WHERE start_time = #{params[:start_time]}
-            AND car_plate = #{params[:car_plate]}
+            WHERE start_time = '#{params[:start_time]}'
+            AND car_plate = '#{params[:car_plate]}'
+            AND email = '#{email}'
             UPDATE_P
+    ActiveRecord::Base.connection.execute(query)
+  end
+
+  def self.check(passenger, j, cond)
+    query = "SELECT * FROM passengers WHERE start_time = '#{j[:start_time]}' AND car_plate = '#{j[:car_plate]}' AND email = '#{passenger}' AND onboard = #{cond};"
+    !ActiveRecord::Base.connection.execute(query).values.empty?
   end
 end

@@ -1,0 +1,13 @@
+.container
+  .row
+    h2 Edit journey
+  .row
+    .col-sm-12
+      = simple_form_for @journey, url: {action: "update"} do |f|
+        = f.input :start_time
+        = f.input :pickup_point
+        = f.input :dropoff_point
+        = f.input :price
+        = f.input :available_seats
+        = f.input :car_plate, placeholder: current_user.car_plates
+        = f.button :submit

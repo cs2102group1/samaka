@@ -1,39 +1,50 @@
 class Journey < ActiveRecord::Base
+  def to_param
+    {start_time: start_time, car_plate: car_plate}
+  end
+
   def self.all
-    query = "SELECT * FROM journeys;"
+    query = "SELECT * FROM journeys ORDER BY age(start_time) LIMIT 10;"
     self.find_by_sql(query)
+  end
+
+  def self.filter(table, email)
+    query = "SELECT start_time, car_plate FROM #{table} t WHERE t.email = '#{email}';"
+    res = []
+    ActiveRecord::Base.connection.execute(query).values.each { |t| res << Journey.find_by_sql("SELECT * FROM journeys j WHERE start_time = '#{t[0]}' AND car_plate = '#{t[1]}';") }
+    res.flatten
   end
 
   def self.find(params)
     query = <<-FIND
             SELECT * FROM journeys j WHERE
-            j.pickup_point = '#{params[:pickup_point]}' AND
+            j.car_plate = '#{params[:car_plate]}' AND
             j.start_time = '#{params[:start_time]}';
             FIND
     self.find_by_sql(query)
   end
 
-  def self.insert(params)
+  def self.insert(params, datetime)
     query = <<-INSERT_J
-            INSERT INTO journeys VALUES (#{params[:pickup_point]},
-              #{params[:dropoff_point]},
-              #{params[:price]},
-              #{params[:available_seats]},
-              #{params[:car_plate]},
-              #{params[:start_time]});
+            INSERT INTO journeys VALUES ('#{params[:pickup_point]}',
+              '#{params[:dropoff_point]}',
+              '#{params[:price]}',
+              '#{params[:available_seats]}',
+              '#{params[:car_plate]}',
+              '#{datetime}');
             INSERT_J
 
     self.find_by_sql(query)
     fk_query = <<-INSERT_FK_J
               INSERT INTO drivers (email, start_time, car_plate)
-              VALUES (#{params[:email]},
-              #{params[:start_time]},
-              #{params[:car_plate]});
+              VALUES ('#{params[:email]}',
+              '#{datetime}',
+              '#{params[:car_plate]}');
               INSERT_FK_J
     self.find_by_sql(fk_query)
   end
 
-  def self.update(params)
+  def self.update(params, datetime)
     values = []
     columns = params.keys.each do |k|
       values << "#{k.to_s} = '#{params[k]}'" unless k == 'pickup_point' ||
@@ -43,8 +54,8 @@ class Journey < ActiveRecord::Base
     query = <<-UPDATE_J
             UPDATE journeys
             SET #{update_values}
-            WHERE pickup_point = '#{params[:pickup_point]}' AND
-            start_time = '#{params[:start_time]}';
+            WHERE car_plate = '#{params[:car_plate]}' AND
+            start_time = '#{datetime}';
             UPDATE_J
     self.find_by_sql(query)
   end
@@ -62,7 +73,7 @@ class Journey < ActiveRecord::Base
 
     query = <<-DELETE_J
             DELETE FROM journeys
-            WHERE pickup_point = '#{params[:pickup_point]}' AND
+            WHERE car_plate = '#{params[:car_plate]}' AND
             start_time = '#{params[:start_time]}'
             DELETE_J
     self.find_by_sql(query)

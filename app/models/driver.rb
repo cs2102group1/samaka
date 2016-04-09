@@ -30,4 +30,9 @@ class Driver < ActiveRecord::Base
             AND car_plate = #{params[:car_plate]}
             UPDATE_D
   end
+
+  def self.check(driver, j)
+    query = "SELECT * FROM drivers WHERE start_time = '#{j[:start_time]}' AND car_plate = '#{j[:car_plate]}' AND email = '#{driver}';"
+    !ActiveRecord::Base.connection.execute(query).values.empty?
+  end
 end
