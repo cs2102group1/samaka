@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224032527) do
+ActiveRecord::Schema.define(version: 20160410154537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,13 @@ ActiveRecord::Schema.define(version: 20160224032527) do
     t.boolean  "onboard",       default: true, null: false
   end
 
+  create_table "requests", id: false, force: :cascade do |t|
+    t.string   "requester",                       null: false
+    t.boolean  "status",           default: true, null: false
+    t.integer  "topup_amount"
+    t.datetime "request_datetime",                null: false
+  end
+
   create_table "users", primary_key: "email", force: :cascade do |t|
     t.string   "username"
     t.string   "role",                                null: false
@@ -76,4 +83,5 @@ ActiveRecord::Schema.define(version: 20160224032527) do
   add_foreign_key "drivers", "users", column: "email", primary_key: "email", name: "drivers_email_fkey"
   add_foreign_key "passengers", "journeys", column: "start_time", primary_key: "start_time", name: "passengers_start_time_fkey"
   add_foreign_key "passengers", "users", column: "email", primary_key: "email", name: "passengers_email_fkey"
+  add_foreign_key "requests", "users", column: "requester", primary_key: "email", name: "requests_requester_fkey"
 end
