@@ -19,5 +19,5 @@ br
         th = @title
       - @users.each do |u|
           tr
-            td = u[0]
-            td = u[1]
+            td = u[0] || u.username
+            td = u[1] || u.credit
