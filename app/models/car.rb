@@ -10,12 +10,6 @@ class Car < ActiveRecord::Base
     self.find_by_sql(query)
   end
 
-  def self.update(p={})
-    Car.delete(car_plate: p[:old])
-    ins = "INSERT INTO cars (car_plate, owner) VALUES('#{p[:new]}', '#{p[:owner]}');"
-    ActiveRecord::Base.connection.execute(ins)
-  end
-
   def self.delete(p={})
     del = "DELETE FROM cars WHERE car_plate = '#{p[:car_plate]}';"
     ActiveRecord::Base.connection.execute(del)
