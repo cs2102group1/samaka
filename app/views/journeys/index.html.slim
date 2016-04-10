@@ -42,7 +42,7 @@ br
             td = 
           td
             .btn-group
-              - unless Driver.check(current_user.email, j) || Passenger.check(current_user.email, j, 'true')
+              - unless j.available_seats == 0 || Driver.check(current_user.email, j) || Passenger.check(current_user.email, j, 'true')
                 = link_to 'Join', passengers_path(email: current_user.email, start_time: j.start_time, car_plate: j.car_plate, onboard: true), class: 'btn btn-xs btn-default', method: :post
               - if Driver.check(current_user.email, j)
                 = link_to 'Edit', edit_journey_path(j.to_param), class: 'btn btn-xs btn-default'

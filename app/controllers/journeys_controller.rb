@@ -68,11 +68,9 @@ class JourneysController < ApplicationController
   end
 
   def get_datetime(j)
-    valid = false
     (1..5).each do |x|
-      valid = valid && j["start_time(#{x}i)"]
+      return unless j["start_time(#{x}i)"]
     end
-    return unless valid
     date = [j['start_time(1i)'], j['start_time(2i)'], j['start_time(3i)']].join('-')
     time = [j['start_time(4i)'], j['start_time(5i)']].join(':')
     datetime = date + ' ' + time
