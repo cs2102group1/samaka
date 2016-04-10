@@ -79,6 +79,7 @@ $nav-item-bg-hover: #f7f7f7;
   &:hover {
     background-color: $nav-item-bg-hover;
     color: $nav-item-fg-hover;
+    text-decoration: none;
   }
 }
 
