@@ -25,4 +25,4 @@
       = f.input :car_plate, collection: @car_plates, disabled: d, hint: hint
 - if current_page?(action: 'new')
   = f.hidden_field :email, value: current_user.email
-= f.button :submit, class: 'btn btn-success'
+= f.button :submit, class: 'btn btn-primary'
