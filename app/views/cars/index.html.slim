@@ -1,15 +1,19 @@
-.container
-  .row
-    h2 My Cars
-  .row
-    ul
-      li = link_to 'New Car', new_car_path
-  .row
-    .col-sm-12
-      table#cars
-        th Car Plate
-        - @cars.each do |c|
-          tr
-            td = c.car_plate
-            td = link_to 'Edit', edit_car_path(c)
-            td = link_to 'Delete', car_path(c), method: :delete
+.row
+  .col-sm-12
+    h2
+      i.fa.fa-lg.fa-car.title-icon
+      span My Cars
+      = link_to 'Add Car', new_car_path, class: 'btn btn-success pull-right'
+    hr
+.row
+  .col-sm-12
+    table.table.table-striped#cars
+      th Car Plate
+      th
+      - @cars.each do |c|
+        tr
+          td = c.car_plate
+          td.text-right
+            .btn-group
+              = link_to 'Edit', edit_car_path(c), class: 'btn btn-default'
+              = link_to 'Delete', car_path(c), method: :delete, class: 'btn btn-default'
