@@ -1,5 +1,6 @@
 class JourneysController < ApplicationController
   before_action :authenticate_user!
+  layout 'contentpage'
 
   def index
     if params[:q]

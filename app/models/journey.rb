@@ -12,9 +12,14 @@ class Journey < ActiveRecord::Base
   end
 
   def self.filter(table, email)
-    query = "SELECT start_time, car_plate FROM #{table} t WHERE t.email = '#{email}';"
+    query = "SELECT start_time, car_plate FROM #{table} t WHERE t.email = '#{email}'"
+    if table == 'passengers'
+        query += ' AND t.onboard = TRUE'
+    end
+    query += ';'
     res = []
-    ActiveRecord::Base.connection.execute(query).values.each { |t| res << Journey.find_by_sql("SELECT * FROM journeys j WHERE start_time = '#{t[0]}' AND car_plate = '#{t[1]}';") }
+    ActiveRecord::Base.connection.execute(query).values.each { |t| 
+      res << Journey.find_by_sql("SELECT * FROM journeys j WHERE start_time = '#{t[0]}' AND car_plate = '#{t[1]}';") }
     res.flatten
   end
 

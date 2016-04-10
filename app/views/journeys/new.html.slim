@@ -5,7 +5,7 @@
     ul
       li = link_to 'Back', journeys_path
   .row
-    .col-sm-12
+    .col-sm-12.field
       = simple_form_for @journey do |f|
         = f.input :start_time
         = f.input :pickup_point
