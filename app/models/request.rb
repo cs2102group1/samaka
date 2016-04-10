@@ -13,7 +13,7 @@ class Request < ActiveRecord::Base
     query = <<-FIND
             SELECT * FROM requests r WHERE
             r.requester = '#{params[:requester]}' AND
-            r.request_datetime = '#{params[:request_datetime]}'
+            r.request_datetime = '#{params[:request_datetime]}';
             FIND
     self.find_by_sql(query)
   end
@@ -26,6 +26,6 @@ class Request < ActiveRecord::Base
 
     query2 = "UPDATE requests SET status = false
               WHERE requester = '#{params[:requester]}' AND request_datetime = '#{params[:request_datetime]}';"
-    ActiveRecord::Base.connection.update(query2)
+    ActiveRecord::Base.connection.execute(query2)
   end
 end

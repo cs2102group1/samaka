@@ -29,8 +29,8 @@ class Passenger < ActiveRecord::Base
   def self.find(params)
     query = <<-FIND
             SELECT * FROM passengers p WHERE
-            p.start_time = '#{params[:start_time]}'' AND
-            p.car_plate = '#{params[:car_plate]}''
+            p.start_time = '#{params[:start_time]}' AND
+            p.car_plate = '#{params[:car_plate]}';
             FIND
     self.find_by_sql(query)
   end
@@ -47,7 +47,7 @@ class Passenger < ActiveRecord::Base
             SET #{update_values}
             WHERE start_time = '#{params[:start_time]}'
             AND car_plate = '#{params[:car_plate]}'
-            AND email = '#{email}'
+            AND email = '#{email}';
             UPDATE_P
     ActiveRecord::Base.connection.execute(query)
   end
