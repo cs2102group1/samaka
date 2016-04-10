@@ -4,9 +4,10 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+@import "bootstrap-overrides";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-@import 'reset';
-@import 'main';
+@import "reset";
+@import "main";
 

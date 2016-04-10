@@ -1,4 +1,4 @@
 = simple_form_for @car do |f|
   = f.input :car_plate
   = f.hidden_field :owner, value: current_user.email
-  = f.button :submit, class: 'btn btn-success'
+  = f.button :submit, class: 'btn btn-primary'
