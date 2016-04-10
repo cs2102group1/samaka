@@ -49,18 +49,21 @@ class Journey < ActiveRecord::Base
     self.find_by_sql(fk_query)
   end
 
-  def self.update(params, datetime)
+  def self.update(params, datetime, car=nil)
     values = []
     columns = params.keys.each do |k|
       values << "#{k.to_s} = '#{params[k]}'" unless k == 'car_plate' ||
       k == 'start_time'
     end
     update_values = values.join(',')
+
+    car_plate = params[:car_plate] || car
+    time = datetime || params[:start_time]
     query = <<-UPDATE_J
             UPDATE journeys
             SET #{update_values}
-            WHERE car_plate = '#{params[:car_plate]}' AND
-            start_time = '#{datetime}';
+            WHERE car_plate = '#{car_plate}' AND
+            start_time = '#{time}';
             UPDATE_J
     self.find_by_sql(query)
   end
