@@ -52,7 +52,7 @@ class Journey < ActiveRecord::Base
   def self.update(params, datetime)
     values = []
     columns = params.keys.each do |k|
-      values << "#{k.to_s} = '#{params[k]}'" unless k == 'pickup_point' ||
+      values << "#{k.to_s} = '#{params[k]}'" unless k == 'car_plate' ||
       k == 'start_time'
     end
     update_values = values.join(',')
