@@ -6,11 +6,13 @@ $section-title-fg-color: #4D4D4D;
 h2 {
   font-family: $font-family-default;
   color: $section-title-fg-color;
-  text-align: center;
+}
+
+.title-icon {
+  margin-right: 10px;
 }
 
 form {
-  padding: 0 2em;
   margin-bottom: 3em;
 }
 
@@ -26,6 +28,7 @@ form {
   }
 
   input[type="text"],
+  input[type="number"],
   input[type="email"],
   input[type="password"] {
     width: 100%;

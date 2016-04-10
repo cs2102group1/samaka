@@ -1,0 +1,28 @@
+- d = !current_page?(action: 'new')
+- hint = 'You cannot modify the start time and car plate of a journey once it is created'
+= f.input :start_time, disabled: d, hint: hint
+.row
+  .col-sm-6
+    .field
+      i.fa.fa-map-marker
+      = f.text_field :pickup_point, placeholder: :pickup_point
+  .col-sm-6
+    .field
+      i.fa.fa-map-marker
+      = f.text_field :dropoff_point, placeholder: :dropoff_point
+.row
+  .col-sm-6
+    .field
+      i.fa.fa-usd
+      = f.number_field :price, placeholder: :price
+  .col-sm-6
+    .field
+      i.fa.fa-users
+      = f.number_field :available_seats, placeholder: :available_seats
+.row
+  .col-sm-12
+    .field
+      = f.input :car_plate, collection: @car_plates, disabled: d, hint: hint
+- if current_page?(action: 'new')
+  = f.hidden_field :email, value: current_user.email
+= f.button :submit, class: 'btn btn-primary'

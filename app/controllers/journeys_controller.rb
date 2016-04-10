@@ -29,7 +29,8 @@ class JourneysController < ApplicationController
   end
 
   def update
-    Journey.update(update_params, get_datetime(params[:journey]))
+    datetime = get_datetime(params[:journey]) || params[:start_time]
+    Journey.update(update_params, datetime, params[:car_plate])
     redirect_to journeys_path
   end
 
@@ -67,6 +68,9 @@ class JourneysController < ApplicationController
   end
 
   def get_datetime(j)
+    (1..5).each do |x|
+      return unless j["start_time(#{x}i)"]
+    end
     date = [j['start_time(1i)'], j['start_time(2i)'], j['start_time(3i)']].join('-')
     time = [j['start_time(4i)'], j['start_time(5i)']].join(':')
     datetime = date + ' ' + time

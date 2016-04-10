@@ -1,13 +1,12 @@
-.container
-  .row
-    h2 Edit journey
-  .row
-    .col-sm-12
-      = simple_form_for @journey, url: {action: "update"} do |f|
-        = f.input :start_time
-        = f.input :pickup_point
-        = f.input :dropoff_point
-        = f.input :price
-        = f.input :available_seats
-        = f.input :car_plate, placeholder: current_user.car_plates
-        = f.button :submit
+.row
+  .col-sm-12
+    h2
+      i.fa.fa-lg.fa-road.title-icon
+      span Edit Journey
+      = link_to 'Back', journeys_path, class: 'btn btn-default pull-right'
+    hr
+.row
+  .col-sm-12
+    = simple_form_for @journey, url: {action: "update"} do |f|
+      = render partial: 'journey_form', locals: {f: f}
+

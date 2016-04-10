@@ -1,7 +1,9 @@
 class Admin::UsersController < ApplicationController
-  layout 'subpage'
+  before_action :authenticate_user!
+  layout 'contentpage'
   def index
-    @users = []
+    @title = 'Credit'
+    @users = User.all.order(credit: :desc)
     if params[:q]
       case params[:q]
       when 'top_spenders'

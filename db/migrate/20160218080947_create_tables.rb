@@ -6,7 +6,7 @@ class CreateTables < ActiveRecord::Migration
       username VARCHAR,
       role VARCHAR NOT NULL,
       phone_number VARCHAR NOT NULL,
-      credit REAL,
+      credit REAL DEFAULT 100,
       PRIMARY KEY (email),
       UNIQUE (username)
     );

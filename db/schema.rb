@@ -55,14 +55,14 @@ ActiveRecord::Schema.define(version: 20160410154537) do
 
   create_table "users", primary_key: "email", force: :cascade do |t|
     t.string   "username"
-    t.string   "role",                                null: false
-    t.string   "phone_number",                        null: false
-    t.float    "credit"
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "role",                                   null: false
+    t.string   "phone_number",                           null: false
+    t.float    "credit",                 default: 100.0
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"

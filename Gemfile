@@ -29,6 +29,8 @@ gem 'slim-rails'
 # Use devise for authentication
 gem 'devise'
 
+gem 'bootstrap-sass', '~> 3.3.6'
+
 # Use font-awesome for icons
 gem 'font-awesome-sass'
 

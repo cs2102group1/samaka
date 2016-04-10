@@ -8,6 +8,7 @@ class Passenger < ActiveRecord::Base
       return
     end
 
+
     j = Journey.find(:start_time => journey[:start_time], :car_plate => journey[:car_plate])
     p = j.first.price
 
@@ -23,6 +24,15 @@ class Passenger < ActiveRecord::Base
       "WHERE EXISTS (SELECT * from cars c, journeys j WHERE c.car_plate = j.car_plate "\
                     "AND c.owner = u.email AND j.car_plate = '#{params[:car_plate]}');"
     ActiveRecord::Base.connection.execute(query3)
+
+
+    reduce_avail = <<-REDUC
+               UPDATE journeys
+               SET available_seats = available_seats - 1
+               WHERE start_time = '#{params[:start_time]}'
+               AND car_plate = '#{params[:car_plate]}'
+               REDUC
+    ActiveRecord::Base.connection.execute(reduce_avail)
 
   end
 
@@ -50,6 +60,14 @@ class Passenger < ActiveRecord::Base
             AND email = '#{email}';
             UPDATE_P
     ActiveRecord::Base.connection.execute(query)
+    did_join = params[:onboard] == 'false' ? 1 : -1
+    reduce_avail = <<-REDUC
+                   UPDATE journeys
+                   SET available_seats = available_seats + #{did_join}
+                   WHERE start_time = '#{params[:start_time]}'
+                   AND car_plate = '#{params[:car_plate]}'
+                   REDUC
+    ActiveRecord::Base.connection.execute(reduce_avail)
   end
 
   def self.check(passenger, j, cond)

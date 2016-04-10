@@ -1,34 +1,49 @@
-.container
-  .row
-    h2 Journeys
-  .row
-    ul
-      li = link_to 'New Journey', journeys_new_path
-      li = link_to 'New Car', new_car_path
-      li = link_to 'Journeys I have taken as Passenger', '?q=passengers'
-      li = link_to 'Journeys I have taken as Driver', '?q=drivers'
-  .row
-    .col-sm-12
-      table#journeys
-        th Start Date
-        th Start Time
-        th Pickup Point
-        th Dropoff
-        th Available Seats
-        th Car Plate
-        th Price
-        th Onboard?
-        - @journeys.each do |j|
-          tr
-            td = j.start_time.strftime('%d %b')
-            td = j.start_time.strftime('%H:%M %P')
-            td = j.pickup_point
-            td = j.dropoff_point
-            td = j.available_seats
-            td = j.car_plate
-            td = j.price     
-            td = link_to Driver.check(current_user.email, j) || Passenger.check(current_user.email, j, 'true') ? 'Onboard!' : '', "/passengers/#{j.start_time}/#{j.car_plate}/false", method: :put
-            td = link_to 'Join', passengers_path(email: current_user.email, start_time: j.start_time, car_plate: j.car_plate, onboard: true), method: :post
-            - if Driver.check(current_user.email, j)
-              td = link_to 'Edit', edit_journey_path(j.to_param)
-              td = link_to 'Delete', journey_path(j.to_param), method: :delete
+.row
+  .col-sm-12
+    h2
+      i.fa.fa-lg.fa-road.title-icon
+      span Journeys
+      .btn-group.pull-right
+        = link_to 'New Journey', journeys_new_path, class: 'btn btn-primary'
+        = link_to 'New Car', new_car_path, class: 'btn btn-primary'
+    hr
+.row
+  .col-xs-12
+    .btn-group
+      = link_to 'All', '?', class: 'btn btn-default'
+      = link_to 'As Passenger', '?q=passengers', class: 'btn btn-default'
+      = link_to 'As Driver', '?q=drivers', class: 'btn btn-default'
+
+br
+.row
+  .col-sm-12
+    table.table.table-striped#journeys
+      th Start Date
+      th Pickup Point
+      th Dropoff
+      th Available Seats
+      th Car Plate
+      th Price
+      th Onboard As
+      th
+      - @journeys.each do |j|
+        tr
+          td = j.start_time.strftime('%d %b %H:%M %P')
+          td = j.pickup_point
+          td = j.dropoff_point
+          td = j.available_seats
+          td = j.car_plate
+          td = j.price
+          - if Driver.check(current_user.email, j)
+            td = link_to 'Driver', '#', class: 'label label-default'
+          - elsif Passenger.check(current_user.email, j, 'true')
+            td = link_to 'Passenger', "/passengers/#{j.start_time}/#{j.car_plate}/false", method: :put, class: 'label label-info'
+          - else
+            td = 
+          td
+            .btn-group
+              - unless j.available_seats == 0 || Driver.check(current_user.email, j) || Passenger.check(current_user.email, j, 'true')
+                = link_to 'Join', passengers_path(email: current_user.email, start_time: j.start_time, car_plate: j.car_plate, onboard: true), class: 'btn btn-xs btn-default', method: :post
+              - if Driver.check(current_user.email, j)
+                = link_to 'Edit', edit_journey_path(j.to_param), class: 'btn btn-xs btn-default'
+                = link_to 'Delete', journey_path(j.to_param), method: :delete, class: 'btn btn-xs btn-default'

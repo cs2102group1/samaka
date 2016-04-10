@@ -1,4 +1,5 @@
 class CarsController < ApplicationController
+  before_action :authenticate_user!
   layout 'subpage'
   def index
     @cars = Car.find(owner: current_user.email)

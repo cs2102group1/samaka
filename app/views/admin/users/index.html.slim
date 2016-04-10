@@ -1,18 +1,23 @@
-.container
-  .row
-    h2 Leaderboard
-  .row
-    ul
-      li = link_to 'Top Spenders', '?q=top_spenders'
-      li = link_to 'Frequent Riders', '?q=frequent_riders'
-      li = link_to 'Super Drivers', '?q=super_drivers'
-  .row
-    .col-sm-12
-      table#users
-        - unless @users.empty?
-          th Username
-          th = @title
-        - @users.each do |u|
-            tr
-              td = u[0]
-              td align='center' = u[1]
+.row
+  .col-sm-12
+    h2
+      i.fa.fa-lg.fa-trophy.title-icon
+      span Leaderboard
+    hr
+.row
+  .col-sm-12
+    .btn-group
+      = link_to 'Top Spenders', '?q=top_spenders', class: 'btn btn-default'
+      = link_to 'Frequent Riders', '?q=frequent_riders', class: 'btn btn-default'
+      = link_to 'Super Drivers', '?q=super_drivers', class: 'btn btn-default'
+br
+.row
+  .col-sm-12
+    table.table.table-striped#users
+      - unless @users.empty?
+        th Name
+        th = @title
+      - @users.each do |u|
+          tr
+            td = u[0] || u.username
+            td = u[1] || u.credit
