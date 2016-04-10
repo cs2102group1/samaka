@@ -1,4 +1,6 @@
 class RequestController < ApplicationController
+  before_action :authenticate_user!
+  
   def index
     @requests = Request.all
   end
