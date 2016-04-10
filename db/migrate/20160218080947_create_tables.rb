@@ -15,6 +15,8 @@ class CreateTables < ActiveRecord::Migration
       owner VARCHAR NOT NULL,
       FOREIGN KEY(owner) REFERENCES users(email)
     );
+
+
     CREATE TABLE journeys(
       pickup_point VARCHAR NOT NULL,
       dropoff_point VARCHAR NOT NULL,

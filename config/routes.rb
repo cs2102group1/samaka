@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users
+    resources :requests
   end
 
   get 'journeys', to: 'journeys#index'
@@ -24,6 +25,9 @@ Rails.application.routes.draw do
     resources :journeys, path: "", param: "car_plate", except: [:index, :new, :create]
   end
 
-  resources :cars, param: "car_plate", except: [:show, :edit, :update]
+
+  resources :cars, param: "car_plate", except: [:show]
+  resources :requests, only: [:new, :create]
+
 
 end

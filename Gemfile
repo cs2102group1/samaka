@@ -35,6 +35,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'font-awesome-sass'
 
 gem 'simple_form'
+gem 'composite_primary_keys'
 
 gem 'tzinfo'
 gem 'tzinfo-data', platforms: [:x64_mingw, :mingw, :mswin]

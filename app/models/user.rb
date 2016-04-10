@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
     ActiveRecord::Base.connection.execute(query).values.flatten
   end
 
+
   def self.top_spenders
     query = <<-SPENDER
             SELECT u.username, MAX(j.price)
@@ -57,6 +58,10 @@ class User < ActiveRecord::Base
             ORDER BY COUNT(*) DESC;
             SUDRV
     ActiveRecord::Base.connection.execute(query).values
+  end
+
+  def is_admin?
+    self.role == STRING_ROLE_ADMIN
   end
 
   private
