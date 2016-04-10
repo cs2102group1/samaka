@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  before_action :authenticate_user!
   layout 'contentpage'
   def index
     @title = 'Credit'
