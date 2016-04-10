@@ -22,8 +22,9 @@ hr
     i.fa.fa-mobile-phone
     = f.text_field :phone_number, placeholder: "Phone number"
 
-  div.alert.alert-warning
-    = devise_error_messages!
+  - if devise_error_messages!.present?
+    div.alert.alert-warning
+      = devise_error_messages!
 
   .actions
     = f.submit "Register", class: "button light"
