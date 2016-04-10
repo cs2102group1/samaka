@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  layout 'subpage'
+  layout 'contentpage'
   def index
     @users = []
     if params[:q]
