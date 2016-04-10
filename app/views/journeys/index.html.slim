@@ -1,17 +1,19 @@
 .row
   .col-sm-12
-    h2 Journeys
+    h2
+      i.fa.fa-lg.fa-car.title-icon
+      span Journeys
+      .btn-group.pull-right
+        = link_to 'New Journey', journeys_new_path, class: 'btn btn-success'
+        = link_to 'New Car', new_car_path, class: 'btn btn-success'
     hr
 .row
-  .col-sm-6
+  .col-xs-12
     .btn-group
       = link_to 'All', '?', class: 'btn btn-default'
       = link_to 'As Passenger', '?q=passengers', class: 'btn btn-default'
       = link_to 'As Driver', '?q=drivers', class: 'btn btn-default'
-  .col-sm-6.text-right
-    .btn-group
-      = link_to 'New Journey', journeys_new_path, class: 'btn btn-default'
-      = link_to 'New Car', new_car_path, class: 'btn btn-default'
+
 br
 .row
   .col-sm-12

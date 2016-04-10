@@ -18,7 +18,7 @@ html
     .container
       p.notice= notice
       p.alert= alert
-      .center= yield
+      = yield
 
     / Scripts
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
