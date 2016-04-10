@@ -20,8 +20,6 @@ class User < ActiveRecord::Base
     ActiveRecord::Base.connection.execute(query).values.flatten
   end
 
-
-
   def self.update(params, email)
     values = []
     columns = params.keys.each do |k|
@@ -34,6 +32,7 @@ class User < ActiveRecord::Base
             WHERE email = '#{email}'
             UPDATE_U
     ActiveRecord::Base.connection.execute(query)
+  end
 
   def self.top_spenders
     query = <<-SPENDER
@@ -72,7 +71,6 @@ class User < ActiveRecord::Base
             ORDER BY COUNT(*) DESC;
             SUDRV
     ActiveRecord::Base.connection.execute(query).values
-
   end
 
   private
