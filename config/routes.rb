@@ -24,6 +24,6 @@ Rails.application.routes.draw do
     resources :journeys, path: "", param: "car_plate", except: [:index, :new, :create]
   end
 
-  resources :cars, param: "car_plate", except: [:show]
+  resources :cars, param: "car_plate", except: [:show, :edit, :update]
 
 end

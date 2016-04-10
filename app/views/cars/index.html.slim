@@ -3,7 +3,7 @@
     h2
       i.fa.fa-lg.fa-car.title-icon
       span My Cars
-      = link_to 'Add Car', new_car_path, class: 'btn btn-success pull-right'
+      = link_to 'Add Car', new_car_path, class: 'btn btn-primary pull-right'
     hr
 .row
   .col-sm-12
@@ -15,5 +15,4 @@
           td = c.car_plate
           td.text-right
             .btn-group
-              = link_to 'Edit', edit_car_path(c), class: 'btn btn-default'
               = link_to 'Delete', car_path(c), method: :delete, class: 'btn btn-default'

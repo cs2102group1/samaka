@@ -10,4 +10,22 @@
       - unless user_signed_in?
           = link_to new_user_registration_path do
             .button.fat Register &amp; Ride
-
+.container
+  .row.home__featurette
+    .col-md-10.col-md-offset-1
+      h2 Why Samåka?
+      p.home__featurette-lead Get a lift at half the usual price, save the environment, make new friends.
+  hr
+  .row
+    .col-md-4.home__feature-col
+      = image_tag("home/icon-commute.png")
+      h3 Affordable
+      p At half the price of a taxi ride, carpooling is an affordable option for daily commutes.
+    .col-md-4.home__feature-col
+      = image_tag("home/icon-social.png")
+      h3 Social
+      p Meet different people during your journey, expand your social network and make new friends!
+    .col-md-4.home__feature-col
+      = image_tag("home/icon-cashless.png")
+      h3 Convenient
+      p Hassle-free cashless transaction. Hop in, hop out, and have a great day!

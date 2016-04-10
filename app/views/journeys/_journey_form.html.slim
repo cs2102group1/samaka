@@ -1,4 +1,6 @@
-= f.input :start_time
+- d = !current_page?(action: 'new')
+- hint = 'You cannot modify the start time and car plate of a journey once it is created'
+= f.input :start_time, disabled: d, hint: hint
 .row
   .col-sm-6
     .field
@@ -20,7 +22,7 @@
 .row
   .col-sm-12
     .field
-      = f.input :car_plate, collection: @car_plates
+      = f.input :car_plate, collection: @car_plates, disabled: d, hint: hint
 - if current_page?(action: 'new')
   = f.hidden_field :email, value: current_user.email
-= f.button :submit, class: 'btn btn-success'
+= f.button :submit, class: 'btn btn-primary'

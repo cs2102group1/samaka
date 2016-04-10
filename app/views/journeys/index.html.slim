@@ -4,8 +4,8 @@
       i.fa.fa-lg.fa-road.title-icon
       span Journeys
       .btn-group.pull-right
-        = link_to 'New Journey', journeys_new_path, class: 'btn btn-success'
-        = link_to 'New Car', new_car_path, class: 'btn btn-success'
+        = link_to 'New Journey', journeys_new_path, class: 'btn btn-primary'
+        = link_to 'New Car', new_car_path, class: 'btn btn-primary'
     hr
 .row
   .col-xs-12
@@ -24,7 +24,7 @@ br
       th Available Seats
       th Car Plate
       th Price
-      th Onboard?
+      th Onboard As
       th
       - @journeys.each do |j|
         tr
@@ -34,7 +34,12 @@ br
           td = j.available_seats
           td = j.car_plate
           td = j.price
-          td = link_to Driver.check(current_user.email, j) || Passenger.check(current_user.email, j, 'true') ? 'Onboard!' : '', "/passengers/#{j.start_time}/#{j.car_plate}/false", method: :put, class: 'label label-info'
+          - if Driver.check(current_user.email, j)
+            td = link_to 'Driver', '#', class: 'label label-default'
+          - elsif Passenger.check(current_user.email, j, 'true')
+            td = link_to 'Passenger', "/passengers/#{j.start_time}/#{j.car_plate}/false", method: :put, class: 'label label-info'
+          - else
+            td = 
           td
             .btn-group
               - unless Driver.check(current_user.email, j) || Passenger.check(current_user.email, j, 'true')
