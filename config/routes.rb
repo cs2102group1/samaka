@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   # Root path
   root to: 'pages#index'
 
+  get 'registration_complete', to: 'pages#registration_complete', as: 'registration_complete'
+
   namespace :admin do
     resources :users
   end
