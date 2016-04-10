@@ -3,34 +3,9 @@
     h2
       i.fa.fa-lg.fa-road.title-icon
       span Edit Journey
-      = link_to 'Back', journeys_path, class: 'btn btn-default pull-right'
     hr
 .row
   .col-sm-12
     = simple_form_for @journey, url: {action: "update"} do |f|
-      = f.input :start_time
-      .row
-        .col-sm-6
-          .field
-            i.fa.fa-map-marker
-            = f.text_field :pickup_point, placeholder: :pickup_point
-        .col-sm-6
-          .field
-            i.fa.fa-map-marker
-            = f.text_field :dropoff_point, placeholder: :dropoff_point
-      .row
-        .col-sm-6
-          .field
-            i.fa.fa-usd
-            = f.number_field :price, placeholder: :price
-        .col-sm-6
-          .field
-            i.fa.fa-users
-            = f.number_field :available_seats, placeholder: :available_seats
-      .row
-        .col-sm-12
-          .field
-            = f.input :car_plate, placeholder: current_user.car_plates
-
-      = f.button :submit, class: 'btn btn-primary'
+      = render partial: 'journey_form', locals: {f: f}
 
