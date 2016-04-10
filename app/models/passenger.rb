@@ -10,6 +10,14 @@ class Passenger < ActiveRecord::Base
 
     query = "INSERT INTO passengers (email, start_time, car_plate, onboard) VALUES('#{params[:email]}', '#{params[:start_time]}', '#{params[:car_plate]}', '#{params[:onboard]}');"
     ActiveRecord::Base.connection.execute(query)
+
+    reduce_avail = <<-REDUC
+               UPDATE journeys
+               SET available_seats = available_seats - 1
+               WHERE start_time = '#{params[:start_time]}'
+               AND car_plate = '#{params[:car_plate]}'
+               REDUC
+    ActiveRecord::Base.connection.execute(reduce_avail)
   end
 
   def self.find(params)
@@ -36,6 +44,14 @@ class Passenger < ActiveRecord::Base
             AND email = '#{email}'
             UPDATE_P
     ActiveRecord::Base.connection.execute(query)
+    did_join = params[:onboard] == 'false' ? 1 : -1
+    reduce_avail = <<-REDUC
+                   UPDATE journeys
+                   SET available_seats = available_seats + #{did_join}
+                   WHERE start_time = '#{params[:start_time]}'
+                   AND car_plate = '#{params[:car_plate]}'
+                   REDUC
+    ActiveRecord::Base.connection.execute(reduce_avail)
   end
 
   def self.check(passenger, j, cond)
