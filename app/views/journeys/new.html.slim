@@ -1,17 +1,37 @@
-.container
-  .row
-    h2 New Carpool Journey
-  .row
-    ul
-      li = link_to 'Back', journeys_path
-  .row
-    .col-sm-12.field
-      = simple_form_for @journey do |f|
-        = f.input :start_time
-        = f.input :pickup_point
-        = f.input :dropoff_point
-        = f.input :price
-        = f.input :available_seats
-        = f.input :car_plate, collection: @car_plates
-        = f.hidden_field :email, value: current_user.email
-        = f.button :submit
+.row
+  .col-sm-12
+    h2
+      i.fa.fa-lg.fa-road.title-icon
+      span Create Journey
+      = link_to 'Back', journeys_path, class: 'btn btn-success pull-right'
+    hr
+.row
+  .col-sm-12.field
+    = simple_form_for @journey do |f|
+      = f.input :start_time
+      .row
+        .col-sm-6
+          .field
+            i.fa.fa-map-marker
+            = f.text_field :pickup_point, placeholder: :pickup_point
+        .col-sm-6
+          .field
+            i.fa.fa-map-marker
+            = f.text_field :dropoff_point, placeholder: :dropoff_point
+      .row
+        .col-sm-6
+          .field
+            i.fa.fa-usd
+            = f.number_field :price, placeholder: :price
+        .col-sm-6
+          .field
+            i.fa.fa-users
+            = f.number_field :available_seats, placeholder: :available_seats
+      .row
+        .col-sm-12
+          .field
+            = f.input :car_plate, collection: @car_plates
+
+      = f.hidden_field :email, value: current_user.email
+      = f.button :submit, class: 'btn btn-success'
+
