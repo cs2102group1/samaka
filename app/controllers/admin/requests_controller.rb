@@ -29,7 +29,7 @@ class Admin::RequestsController < ApplicationController
   private
 
   def authorized?
-    current_user.is_admin?
+    current_user.admin?
   end
 
   def find_params

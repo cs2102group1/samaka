@@ -11,9 +11,10 @@
         = link_to 'Sign in', new_user_session_path, class: 'navigation__link'
         = link_to 'Register', new_user_registration_path, class: 'navigation__link'
       - else
-
-        = link_to 'Requests', admin_requests_path, class: 'navigation__link'
-        = link_to 'Journeys', journeys_path, class: 'navigation__link'
+        - if current_user.admin?
+          = link_to 'Requests', admin_requests_path, class: 'navigation__link'
+        - else
+          = link_to 'Requests', new_request_path, class: 'navigation__link'
         = link_to current_user && current_user.admin? ? 'Manage Journeys' : 'Journeys', journeys_path, class: 'navigation__link'
         = link_to 'Leaderboard', admin_users_path, class: 'navigation__link'
         = link_to current_user && current_user.admin? ? 'Manage Cars' : 'My Cars', cars_path, class: 'navigation__link'

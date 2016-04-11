@@ -25,6 +25,6 @@ class Admin::UsersController < ApplicationController
 
   private
   def authorized?
-    current_user.is_admin?
+    current_user.admin?
   end
 end
