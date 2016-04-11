@@ -1,0 +1,5 @@
+= simple_form_for @request do |f|
+  = f.input :topup_amount
+  = f.hidden_field :requester, value: current_user.email
+  = f.hidden_field :request_datetime, value: Time.current
+  = f.button :submit, class: 'btn btn-primary'

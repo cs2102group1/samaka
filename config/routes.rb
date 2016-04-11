@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users
-    resources :requests
+    resources :requests, param: "request_datetime"
   end
 
   get 'journeys', to: 'journeys#index'

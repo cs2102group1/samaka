@@ -11,6 +11,7 @@
         = link_to 'Sign in', new_user_session_path, class: 'navigation__link'
         = link_to 'Register', new_user_registration_path, class: 'navigation__link'
       - else
+        = link_to 'Requests', admin_requests_path, class: 'navigation__link'
         = link_to 'Journeys', journeys_path, class: 'navigation__link'
         = link_to 'Leaderboard', admin_users_path, class: 'navigation__link'
         = link_to 'My Cars', cars_path, class: 'navigation__link'

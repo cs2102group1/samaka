@@ -1,5 +1,6 @@
-class RequestController < ApplicationController
+class RequestsController < ApplicationController
   before_action :authenticate_user!
+  layout 'subpage'
   
   def index
     @requests = Request.all
@@ -11,10 +12,11 @@ class RequestController < ApplicationController
 
   def create
     Request.insert(create_params)
+    redirect_to root_path
   end
 
-  def approve
-    Request.approve(approve_params) 
+  def update
+    Request.approve(approve_params)
   end
 
   private
@@ -25,7 +27,7 @@ class RequestController < ApplicationController
   end
 
   def create_params
-    permit = [:requester, :status, :topup_amount, :request_datetime]
-    params.permit(permit)
+    permit = [:requester, :topup_amount, :request_datetime]
+    params.require(:request).permit(permit)
   end
 end

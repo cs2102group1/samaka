@@ -2,9 +2,10 @@ class Request < ActiveRecord::Base
   self.primary_keys = :requester, :request_datetime
   belongs_to :users, dependent: :destroy
 
+
   def self.insert(params)
     query = "INSERT INTO requests (requester, status, topup_amount, request_datetime)
-             VALUES ('#{params[:requester]}', '#{params[:status]}', '#{params[:topup_amount]}',
+             VALUES ('#{params[:requester]}', true, '#{params[:topup_amount]}',
              '#{params[:request_datetime]}');"
     ActiveRecord::Base.connection.execute(query)
   end
@@ -27,5 +28,10 @@ class Request < ActiveRecord::Base
     query2 = "UPDATE requests SET status = false
               WHERE requester = '#{params[:requester]}' AND request_datetime = '#{params[:request_datetime]}';"
     ActiveRecord::Base.connection.execute(query2)
+  end
+
+  def self.delete(params)
+    del = "DELETE FROM requests WHERE requester = '#{params[:requester]}' AND request_datetime = '#{params[:request_datetime]}';"
+    ActiveRecord::Base.connection.execute(del)
   end
 end

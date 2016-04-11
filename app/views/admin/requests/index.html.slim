@@ -1,0 +1,37 @@
+.row
+  .col-sm-12
+    h2
+      i.fa.fa-lg.fa-road.title-icon
+      span Requests
+      .btn-group.pull-right
+        = link_to 'New Requests', new_request_path, class: 'btn btn-primary'
+    hr
+.row
+  .col-xs-12
+    .btn-group
+      = link_to 'All', '?', class: 'btn btn-default'
+      = link_to 'Approved', '?q=approved', class: 'btn btn-default'
+      = link_to 'Pending', '?q=pending', class: 'btn btn-default'
+
+br
+.row
+  .col-sm-12
+    table.table.table-striped#journeys
+      th Request Date
+      th Requester
+      th Amount
+      th Status
+      th
+      - @requests.each do |r|
+        tr
+          td = r.request_datetime.strftime('%d %b %H:%M %P')
+          td = r.requester
+          td = r.topup_amount
+            td = 
+          td
+            .btn-group
+              - unless r.status == false
+                = link_to 'Approve', admin_request_path(:requester => r.requester, :request_datetime => r.request_datetime, :topup_amount => r.topup_amount), class: 'btn btn-xs btn-default', method: :patch
+                = link_to 'Delete', admin_request_path(:requester => r.requester, :request_datetime => r.request_datetime), method: :delete, class: 'btn btn-xs btn-default'
+              - else
+                = link_to 'Delete', admin_request_path(:requester => r.requester, :request_datetime => r.request_datetime), method: :delete, class: 'btn btn-xs btn-default'
