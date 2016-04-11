@@ -2,8 +2,12 @@ class Admin::UsersController < ApplicationController
   before_action :authenticate_user!
   layout 'contentpage'
   def index
-    @title = 'Credit'
-    @users = User.all.order(credit: :desc)
+    if authorized?
+      @title = 'Credit'
+      @users = User.all.order(credit: :desc) 
+    else 
+      @users = []
+    end
     if params[:q]
       case params[:q]
       when 'top_spenders'
@@ -17,5 +21,10 @@ class Admin::UsersController < ApplicationController
         @users = User.super_drivers
       end
     end
+  end
+
+  private
+  def authorized?
+    current_user.is_admin?
   end
 end
