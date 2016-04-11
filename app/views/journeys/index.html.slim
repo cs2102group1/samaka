@@ -18,11 +18,11 @@ br
 .row
   .col-sm-12
     table.table.table-striped#journeys
-      th Start Date
-      th Pickup Point
+      th Start date
+      th Pickup
       th Dropoff
-      th Available Seats
-      th Car Plate
+      th # Seats
+      th Car
       th Price
       th Onboard As
       th
@@ -42,8 +42,8 @@ br
             td = 
           td
             .btn-group
-              - unless j.available_seats == 0 || Driver.check(current_user.email, j) || Passenger.check(current_user.email, j, 'true')
+              - unless current_user.admin? || j.available_seats == 0 || Driver.check(current_user.email, j) || Passenger.check(current_user.email, j, 'true')
                 = link_to 'Join', passengers_path(email: current_user.email, start_time: j.start_time, car_plate: j.car_plate, onboard: true), class: 'btn btn-xs btn-default', method: :post
-              - if Driver.check(current_user.email, j)
+              - if Driver.check(current_user.email, j) || current_user.admin?
                 = link_to 'Edit', edit_journey_path(j.to_param), class: 'btn btn-xs btn-default'
                 = link_to 'Delete', journey_path(j.to_param), method: :delete, class: 'btn btn-xs btn-default'

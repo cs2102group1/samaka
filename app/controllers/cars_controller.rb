@@ -2,7 +2,11 @@ class CarsController < ApplicationController
   before_action :authenticate_user!
   layout 'subpage'
   def index
-    @cars = Car.find(owner: current_user.email)
+    if current_user.admin?
+      @cars = Car.all
+    else
+      @cars = Car.find(owner: current_user.email)
+    end
   end
 
   def new
