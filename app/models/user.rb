@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
     ActiveRecord::Base.connection.execute(query).values
   end
 
-  def is_admin?
+  def admin?
     self.role == STRING_ROLE_ADMIN
   end
 
